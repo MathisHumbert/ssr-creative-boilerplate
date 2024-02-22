@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import express from 'express';
 import fetch from 'node-fetch';
 import * as prismic from '@prismicio/client';
+import path from 'path';
 import 'dotenv/config';
 
 // Constants
@@ -11,10 +12,13 @@ const base = process.env.BASE || '/';
 
 // Cached production assets
 const templateHtml = isProduction
-  ? await fs.readFile('./dist/client/index.html', 'utf-8')
+  ? await fs.readFile(path.resolve('dist/client/index.html'), 'utf-8')
   : '';
 const ssrManifest = isProduction
-  ? await fs.readFile('./dist/client/.vite/ssr-manifest.json', 'utf-8')
+  ? await fs.readFile(
+      path.resolve('dist/client/.vite/ssr-manifest.json'),
+      'utf-8'
+    )
   : undefined;
 
 // Prismic
@@ -86,7 +90,13 @@ app.use('*', async (req, res) => {
       template = await vite.transformIndexHtml(url, template);
       render = (await vite.ssrLoadModule('/src/entry-server.js')).render;
     } else {
-      template = templateHtml;
+      if (templateHtml) {
+        template = templateHtml;
+      } else {
+        template = await fs.readFile('./index.html', 'utf-8');
+        template = await vite.transformIndexHtml(url, template);
+      }
+
       render = (await import('./dist/server/entry-server.js')).render;
     }
 
