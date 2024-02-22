@@ -11,9 +11,17 @@ export function renderHome(data) {
 
 const myTemplate = (data) =>
   html`
-    <div>
-      </a>
-      <h1>${data.home.title} Page</h1>
-      <a href=${data.home.link.url}>${data.home.link.text} Link</a>
+    <div class="content" id="content" data-template="home">
+      <div class="home" data-background="#1e1e1e" data-color="#dedede">
+        <div class="home__wrapper">
+          <div class="home__top">
+            <h1>${data.home.title} Page</h1>
+            <a href=${data.home.link.url}>${data.home.link.text} Link</a>
+          </div>
+          <div class="home__bottom">
+            <div class="home__media"></div>
+          </div>
+        </div>
+      </div>
     </div>
   `;

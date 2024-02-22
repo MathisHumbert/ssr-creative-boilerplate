@@ -22,7 +22,20 @@
     "sirv": "^2.0.4"
   },
   "devDependencies": {
+    "auto-bind": "^5.0.1",
     "cross-env": "^7.0.3",
-    "vite": "^5.0.10"
+    "events": "^3.3.0",
+    "fontfaceobserver": "^2.3.0",
+    "gsap": "^3.12.5",
+    "imagesloaded": "^5.0.0",
+    "include-media": "^2.0.0",
+    "lodash": "^4.17.21",
+    "nodelist-foreach-polyfill": "^1.2.0",
+    "normalize-wheel": "^1.0.1",
+    "prefix": "^1.0.0",
+    "three": "^0.161.0",
+    "ua-parser-js": "^1.0.37",
+    "vite": "^5.0.10",
+    "vite-plugin-glslify": "^2.0.2"
   }
 }

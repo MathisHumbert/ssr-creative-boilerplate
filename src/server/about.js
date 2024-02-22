@@ -11,8 +11,17 @@ export function renderAbout(data) {
 
 const myTemplate = (data) =>
   html`
-    <div>
-      <h1>${data.about.title} Page</h1>
-      <a href=${data.about.link.url}>${data.about.link.text} Link</a>
+    <div class="content" id="content" data-template="about">
+      <div class="about" data-background="#dedede" data-color="#1e1e1e">
+        <div class="about__wrapper">
+          <div class="about__top">
+            <h1>${data.about.title} Page</h1>
+            <a href=${data.about.link.url}>${data.about.link.text} Link</a>
+          </div>
+          <div class="about__bottom">
+            <div class="about__media"></div>
+          </div>
+        </div>
+      </div>
     </div>
   `;
