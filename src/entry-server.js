@@ -1,5 +1,5 @@
-import { renderAbout } from './server/about';
-import { renderHome } from './server/home';
+import { renderAbout } from './server/pages/about';
+import { renderHome } from './server/pages/home';
 import { renderHead } from './server/layouts/head';
 
 export function render(url, data) {
