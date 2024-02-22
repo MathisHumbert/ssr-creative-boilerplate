@@ -19,7 +19,6 @@ export function render(url, data) {
   <script>
   ${JSON.stringify(data.assets).replace(/<\//g, '<\\/')}
   </script>
-  <script type="module" src="/src/entry-client.js"></script>
   `;
 
   return { html, head, script };
