@@ -120,7 +120,7 @@ app.use('*', async (req, res) => {
       .replace('<!--app-html-->', rendered.html ?? '')
       .replace('<!--app-script-->', rendered.script ?? '');
 
-    res.status(200).set({ 'Content-Type': 'text/html' }).send(html);
+    res.status(200).send(html);
   } catch (e) {
     vite?.ssrFixStacktrace(e);
     console.log(e.stack);
