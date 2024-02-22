@@ -7,14 +7,14 @@
   ],
   "routes": [
     {
-      "src": "/assets/(.*)",
+      "src": "/assets/(.*\\.js)",
       "dest": "/dist/client/assets/$1",
       "headers": {
         "Content-Type": "application/javascript"
       }
     },
     {
-      "src": "/assets/(.*)",
+      "src": "/assets/(.*\\.css)",
       "dest": "/dist/client/assets/$1",
       "headers": {
         "Content-Type": "text/css"
