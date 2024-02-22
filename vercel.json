@@ -2,9 +2,21 @@
   "version": 2,
   "builds": [
     {
-      "src": "server.js",
+      "src": "vercel.js",
       "use": "@vercel/node"
     }
   ],
-  "routes": [{ "src": "/(.*)", "dest": "server.js" }]
+  "routes": [
+    {
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1",
+      "headers": {
+        "Content-Type": "application/javascript"
+      }
+    },
+    {
+      "src": "/(.*)",
+      "dest": "vercel.js"
+    }
+  ]
 }
