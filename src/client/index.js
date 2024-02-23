@@ -16,6 +16,9 @@ export default class App {
   constructor() {
     AutoBind(this);
 
+    this.url = window.location.href;
+    this.isLoading = false;
+
     this.init();
   }
 
@@ -96,6 +99,11 @@ export default class App {
   }
 
   async onChange({ url, push }) {
+    if (url === this.url || this.isLoading) return;
+
+    this.url = url;
+    this.isLoading = true;
+
     this.canvas.onChangeStart(this.template, url);
 
     await this.page.hide();
@@ -125,6 +133,8 @@ export default class App {
       this.createLoader();
 
       this.addLinkListeners();
+
+      this.isLoading = false;
     } else {
       console.log('error');
     }
@@ -242,6 +252,7 @@ export default class App {
           if (!isAnchor) {
             this.onChange({
               url: link.href,
+              push: true,
             });
           }
         };
