@@ -117,6 +117,7 @@ export default class App {
       div.innerHTML = html;
 
       if (push) {
+        console.log('push');
         window.history.pushState({}, '', url);
       }
 
