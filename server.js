@@ -86,18 +86,20 @@ app.use('*', async (req, res) => {
 
     if (!isProduction) {
       // Always read fresh template in development
-      template = await fs.readFile('./index.html', 'utf-8');
+      template = await fs.readFile(path.resolve('index.html'), 'utf-8');
       template = await vite.transformIndexHtml(url, template);
-      render = (await vite.ssrLoadModule('/src/entry-server.js')).render;
+      render = (await vite.ssrLoadModule(path.resolve('src/entry-server.js')))
+        .render;
     } else {
       if (templateHtml) {
         template = templateHtml;
       } else {
-        template = await fs.readFile('./index.html', 'utf-8');
+        template = await fs.readFile(path.resolve('index.html'), 'utf-8');
         template = await vite.transformIndexHtml(url, template);
       }
 
-      render = (await import('./dist/server/entry-server.js')).render;
+      render = (await import(path.resolve('dist/server/entry-server.js')))
+        .render;
     }
 
     const defaults = await fetchDefaults(api);
@@ -116,11 +118,11 @@ app.use('*', async (req, res) => {
     const rendered = await render(url, data);
 
     const html = template
-      // .replace('<!--app-head-->', rendered.head ?? '')
+      .replace('<!--app-head-->', rendered.head ?? '')
       .replace('<!--app-html-->', rendered.html ?? '')
       .replace('<!--app-script-->', rendered.script ?? '');
 
-    res.status(200).send(html);
+    res.status(200).set({ 'Content-Type': 'text/html' }).send(html);
   } catch (e) {
     vite?.ssrFixStacktrace(e);
     console.log(e.stack);
