@@ -1,16 +1,18 @@
 import fs from 'node:fs/promises';
 import express from 'express';
 import fetch from 'node-fetch';
+import errorHandler from 'errorhandler';
+import logger from 'morgan';
+import bodyParser from 'body-parser';
+import methodOverride from 'method-override';
 import * as prismic from '@prismicio/client';
 import path from 'path';
 import 'dotenv/config';
 
-// Constants
 const isProduction = process.env.NODE_ENV === 'production';
 const port = process.env.PORT || 3000;
 const base = process.env.BASE || '/';
 
-// Cached production assets
 const templateHtml = isProduction
   ? await fs.readFile(path.resolve('dist/client/index.html'), 'utf-8')
   : '';
@@ -21,7 +23,6 @@ const ssrManifest = isProduction
     )
   : undefined;
 
-// Prismic
 const initApi = (req) => {
   return prismic.createClient(process.env.PRISMIC_REPOSITORY, {
     accessToken: process.env.PRISMIC_ACCESS_TOKEN,
@@ -50,10 +51,14 @@ const fetchAbout = async (api) => {
   return about;
 };
 
-// Create http server
 const app = express();
 
-// Add Vite or respective production middlewares
+app.use(logger('dev'));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(methodOverride());
+app.use(errorHandler());
+
 let vite;
 
 if (!isProduction) {
