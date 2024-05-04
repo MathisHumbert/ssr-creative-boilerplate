@@ -1,0 +1,15 @@
+@import './base/reset';
+
+@import './utils/variables';
+@import './utils/functions';
+@import './utils/mixins';
+
+@import './shared/pages';
+
+@import './base/fonts';
+@import './base/base';
+
+@import './layouts/nav';
+
+@import './pages/home/home';
+@import './pages/about/about';

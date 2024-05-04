@@ -1,0 +1,17 @@
+block variables 
+
+doctype html 
+html(lang="en")
+  head 
+    include layouts/head.pug
+
+  include layouts/nav.pug
+
+  body
+    .content#content(data-template=template)
+      block content
+
+  if isProduction 
+    script(type="module", src="main.js")
+  else
+    script(type="module", src="/src/app/index.js")

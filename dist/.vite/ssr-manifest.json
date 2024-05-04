@@ -1,0 +1,722 @@
+{
+  "\u0000/Users/mathis/Documents/dev/bruno-arizio-clone copy 2/node_modules/ev-emitter/ev-emitter.js?commonjs-module": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "\u0000/Users/mathis/Documents/dev/bruno-arizio-clone copy 2/node_modules/events/events.js?commonjs-module": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "\u0000/Users/mathis/Documents/dev/bruno-arizio-clone copy 2/node_modules/fontfaceobserver/fontfaceobserver.standalone.js?commonjs-module": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "\u0000/Users/mathis/Documents/dev/bruno-arizio-clone copy 2/node_modules/imagesloaded/imagesloaded.js?commonjs-module": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "\u0000/Users/mathis/Documents/dev/bruno-arizio-clone copy 2/node_modules/lodash/_nodeUtil.js?commonjs-module": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "\u0000/Users/mathis/Documents/dev/bruno-arizio-clone copy 2/node_modules/lodash/isBuffer.js?commonjs-module": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "\u0000/Users/mathis/Documents/dev/bruno-arizio-clone copy 2/node_modules/prefix/index.js?commonjs-module": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "\u0000/Users/mathis/Documents/dev/bruno-arizio-clone copy 2/node_modules/ua-parser-js/src/ua-parser.js?commonjs-module": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "\u0000commonjsHelpers.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/auto-bind/index.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/ev-emitter/ev-emitter.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/events/events.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/fontfaceobserver/fontfaceobserver.standalone.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/gsap/CSSPlugin.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/gsap/CustomEase.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/gsap/Observer.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/gsap/ScrollTrigger.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/gsap/gsap-core.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/gsap/index.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/gsap/utils/paths.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/imagesloaded/imagesloaded.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_DataView.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_Hash.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_ListCache.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_Map.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_MapCache.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_Promise.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_Set.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_SetCache.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_Stack.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_Symbol.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_Uint8Array.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_WeakMap.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_arrayEach.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_arrayFilter.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_arrayLikeKeys.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_arrayMap.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_arrayPush.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_arraySome.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_assocIndexOf.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_baseEach.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_baseFor.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_baseForOwn.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_baseGet.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_baseGetAllKeys.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_baseGetTag.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_baseHasIn.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_baseIsArguments.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_baseIsEqual.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_baseIsEqualDeep.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_baseIsMatch.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_baseIsNative.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_baseIsTypedArray.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_baseIteratee.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_baseKeys.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_baseMap.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_baseMatches.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_baseMatchesProperty.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_baseProperty.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_basePropertyDeep.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_baseTimes.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_baseToString.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_baseUnary.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_cacheHas.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_castFunction.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_castPath.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_coreJsData.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_createBaseEach.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_createBaseFor.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_equalArrays.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_equalByTag.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_equalObjects.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_freeGlobal.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_getAllKeys.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_getMapData.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_getMatchData.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_getNative.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_getRawTag.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_getSymbols.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_getTag.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_getValue.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_hasPath.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_hashClear.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_hashDelete.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_hashGet.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_hashHas.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_hashSet.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_isIndex.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_isKey.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_isKeyable.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_isMasked.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_isPrototype.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_isStrictComparable.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_listCacheClear.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_listCacheDelete.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_listCacheGet.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_listCacheHas.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_listCacheSet.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_mapCacheClear.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_mapCacheDelete.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_mapCacheGet.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_mapCacheHas.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_mapCacheSet.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_mapToArray.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_matchesStrictComparable.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_memoizeCapped.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_nativeCreate.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_nativeKeys.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_nodeUtil.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_objectToString.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_overArg.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_root.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_setCacheAdd.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_setCacheHas.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_setToArray.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_stackClear.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_stackDelete.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_stackGet.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_stackHas.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_stackSet.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_stringToPath.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_toKey.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/_toSource.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/each.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/eq.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/forEach.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/get.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/hasIn.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/identity.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/isArguments.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/isArray.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/isArrayLike.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/isBuffer.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/isFunction.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/isLength.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/isObject.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/isObjectLike.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/isSymbol.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/isTypedArray.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/keys.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/map.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/memoize.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/property.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/stubArray.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/stubFalse.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/lodash/toString.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/nodelist-foreach-polyfill/index.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/normalize-wheel/index.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/normalize-wheel/src/ExecutionEnvironment.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/normalize-wheel/src/UserAgent_DEPRECATED.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/normalize-wheel/src/isEventSupported.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/normalize-wheel/src/normalizeWheel.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/prefix/index.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/split-type/dist/index.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/three/build/three.module.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "node_modules/ua-parser-js/src/ua-parser.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "src/app/animations/Appear.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "src/app/animations/Text.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "src/app/animations/Title.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "src/app/classes/Animation.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "src/app/classes/Component.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "src/app/classes/Detection.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "src/app/classes/LazyLoad.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "src/app/classes/Page.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "src/app/components/Canvas/About/Cube.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "src/app/components/Canvas/About/index.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "src/app/components/Canvas/Home/Media.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "src/app/components/Canvas/Home/index.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "src/app/components/Canvas/index.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "src/app/components/Preloader.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "src/app/index.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "src/app/pages/About/index.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "src/app/pages/Home/index.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "src/app/shaders/fragment.glsl": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "src/app/shaders/vertex.glsl": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "src/app/utils/dom.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "src/app/utils/easing.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "src/app/utils/math.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "src/app/utils/scroll.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ],
+  "src/app/utils/text.js": [
+    "/satoshi-medium.woff2",
+    "/satoshi-medium.woff"
+  ]
+}

@@ -1,0 +1,13 @@
+extends ../index.pug 
+
+block variables 
+  - var template = 'about'
+
+block content
+  .about(data-background="#dedede" data-color="#1e1e1e")
+    .about__wrapper#wrapper
+      .about__top
+        h1=`${title} Page`
+        a(href=link.url)=`${link.text} Link`
+      .about__bottom
+        .about__media
