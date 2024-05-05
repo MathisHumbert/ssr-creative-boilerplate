@@ -19,7 +19,6 @@
     "method-override": "^3.0.0",
     "morgan": "^1.10.0",
     "node-fetch": "^3.3.2",
-    "prismic-dom": "^2.2.7",
     "pug": "^3.0.2",
     "sass": "^1.71.0",
     "sirv": "^2.0.4"
@@ -29,8 +28,6 @@
     "cross-env": "^7.0.3",
     "events": "^3.3.0",
     "fontfaceobserver": "^2.3.0",
-    "glsl-curl-noise": "^0.0.4",
-    "glsl-noise": "^0.0.0",
     "gsap": "^3.12.5",
     "imagesloaded": "^5.0.0",
     "include-media": "^2.0.0",
@@ -39,7 +36,6 @@
     "prefix": "^1.0.0",
     "split-type": "^0.3.4",
     "three": "^0.161.0",
-    "three-msdf-text-utils": "^1.1.7",
     "ua-parser-js": "^1.0.37",
     "vite": "^5.0.10",
     "vite-plugin-glslify": "^2.0.2"
