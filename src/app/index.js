@@ -8,13 +8,16 @@ import FontFaceObserver from 'fontfaceobserver';
 import * as THREE from 'three';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
+import Stats from 'stats.js';
 
 import Canvas from './components/Canvas';
 import Preloader from './components/Preloader';
-import { each } from './utils/dom';
+import Grid from './components/Grid';
 
 import Home from './pages/Home';
 import About from './pages/About';
+
+import { each } from './utils/dom';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -26,6 +29,11 @@ export default class App {
     this.isLoading = false;
     this.clock = new THREE.Clock();
     this.odlElapsedTime = 0;
+
+    if (import.meta.env.VITE_DEV_MODE) {
+      this.createStats();
+      this.createGrid();
+    }
 
     this.init();
   }
@@ -94,6 +102,21 @@ export default class App {
     });
 
     ScrollTrigger.defaults({ scroller: '#wrapper' });
+  }
+
+  createStats() {
+    this.stats = new Stats();
+
+    this.stats.showPanel(0);
+
+    document.body.appendChild(this.stats.dom);
+  }
+
+  createGrid() {
+    new Grid({
+      desktop: { count: 12, margin: 32, gutter: 20 },
+      mobile: { count: 4, margin: 24, gutter: 20 },
+    });
   }
 
   /**
@@ -230,12 +253,20 @@ export default class App {
     const deltaTime = elapsedTime - this.odlElapsedTime;
     this.odlElapsedTime = elapsedTime;
 
+    if (this.stats) {
+      this.stats.begin();
+    }
+
     if (this.page && this.page.update) {
       this.page.update();
     }
 
     if (this.canvas && this.canvas.update) {
       this.canvas.update(this.page.scroll.current, deltaTime);
+    }
+
+    if (this.stats) {
+      this.stats.end();
     }
 
     ScrollTrigger.update();
