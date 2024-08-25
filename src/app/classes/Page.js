@@ -35,6 +35,7 @@ export default class Page extends EventEmitter {
       },
     };
     this.isScrollable = isScrollable;
+    this.preventScroll = false;
 
     this.scroll = {
       position: 0,
@@ -55,7 +56,7 @@ export default class Page extends EventEmitter {
     this.element = document.querySelector(this.selectors.element);
     this.elements = {};
 
-    each(this.selectors.elements, (selector, key) => {
+    each(this.selectors.elements, ([key, selector]) => {
       if (
         selector instanceof window.HTMLElement ||
         selector instanceof window.NodeList
@@ -240,7 +241,7 @@ export default class Page extends EventEmitter {
   }
 
   onTouchDown(event) {
-    if (!Detection.isMobile || !this.isVisible) return;
+    if (!Detection.isMobile || !this.isVisible || this.preventScroll) return;
 
     this.isDown = true;
 
@@ -249,7 +250,13 @@ export default class Page extends EventEmitter {
   }
 
   onTouchMove(event) {
-    if (!Detection.isMobile || !this.isDown || !this.isVisible) return;
+    if (
+      !Detection.isMobile ||
+      !this.isDown ||
+      !this.isVisible ||
+      this.preventScroll
+    )
+      return;
 
     const y = event.touches ? event.touches[0].clientY : event.clientY;
     const distance = (this.start - y) * 3;
@@ -258,13 +265,13 @@ export default class Page extends EventEmitter {
   }
 
   onTouchUp() {
-    if (!Detection.isMobile || !this.isVisible) return;
+    if (!Detection.isMobile || !this.isVisible || this.preventScroll) return;
 
     this.isDown = false;
   }
 
   onWheel(normalized) {
-    if (!this.isVisible) return;
+    if (!this.isVisible || this.preventScroll) return;
 
     const speed = normalized.pixelY;
 
@@ -284,7 +291,7 @@ export default class Page extends EventEmitter {
    * Loop.
    */
   update() {
-    if (!this.isScrollable || !this.isVisible) return;
+    if (!this.isScrollable || !this.isVisible || this.preventScroll) return;
 
     this.scroll.target = clamp(0, this.scroll.limit, this.scroll.target);
 
@@ -294,11 +301,7 @@ export default class Page extends EventEmitter {
       this.scroll.ease
     );
 
-    if (this.scroll.target === 0) {
-      this.scroll.current = Math.floor(this.scroll.current);
-    } else {
-      this.scroll.current = Math.ceil(this.scroll.current);
-    }
+    this.scroll.current = Number(this.scroll.current.toFixed(2));
 
     if (this.scroll.current < 0.1) {
       this.scroll.current = 0;

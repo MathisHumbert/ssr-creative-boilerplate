@@ -42,11 +42,14 @@ const fetchAbout = async (api) => {
 
 const app = express();
 
-app.use(logger('dev'));
+if (!isProduction) {
+  app.use(logger('dev'));
+  app.use(errorHandler());
+}
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(methodOverride());
-app.use(errorHandler());
 
 if (!isProduction) {
   const { createServer } = await import('vite');
@@ -81,7 +84,7 @@ app.get('/', async (req, res) => {
       link: { text: 'About', url: '/about' },
       isProduction,
     });
-  } catch (error) {
+  } catch (e) {
     vite?.ssrFixStacktrace(e);
     console.log(e.stack);
     res.status(500).end(e.stack);
@@ -100,7 +103,7 @@ app.get('/about', async (req, res) => {
       link: { text: 'Home', url: '/', isProduction },
       isProduction,
     });
-  } catch (error) {
+  } catch (e) {
     vite?.ssrFixStacktrace(e);
     console.log(e.stack);
     res.status(500).end(e.stack);
@@ -110,8 +113,8 @@ app.get('/about', async (req, res) => {
 app.use((req, res, next) => {
   try {
     res.status(404).send('404 PAGE');
-  } catch (error) {
-    console.log(error);
+  } catch (e) {
+    console.log(e);
   }
 });
 

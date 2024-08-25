@@ -7,7 +7,7 @@ import NormalizeWheel from 'normalize-wheel';
 import FontFaceObserver from 'fontfaceobserver';
 import * as THREE from 'three';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/all';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Stats from 'stats.js';
 
 import Canvas from './components/Canvas';
@@ -30,7 +30,7 @@ export default class App {
     this.clock = new THREE.Clock();
     this.odlElapsedTime = 0;
 
-    if (import.meta.env.VITE_DEV_MODE) {
+    if (import.meta.env.VITE_DEV_MODE === 'true') {
       this.createStats();
       this.createGrid();
     }

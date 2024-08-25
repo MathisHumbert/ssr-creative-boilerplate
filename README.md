@@ -39,7 +39,7 @@ All of your assets are located in the PUBLIC folder in the root of the template.
 Install the project dependencies using:
 
 ```sh
-yarn install
+pnpm install
 ```
 
 ### Dive In!
@@ -47,7 +47,7 @@ yarn install
 Kickstart the development environment:
 
 ```sh
-yarn dev
+pnpm dev
 ```
 
 Navigate to http://localhost:3000/
@@ -57,7 +57,7 @@ Navigate to http://localhost:3000/
 To generate a build of the project:
 
 ```sh
-yarn build
+pnpm build
 ```
 
 ### Preview
@@ -65,12 +65,12 @@ yarn build
 You can easily preview your project by first building it and the using the preview command:
 
 ```sh
-yarn preview
+pnpm preview
 ```
 
 ### Deploy
 
-You can easily deploy it on vercel for free, don't forget to build and to set the environment variables, especially this one:
+You can easily deploy it on vercel for free, don't forget to set the environment variables, especially this one:
 
 ```sh
 NODE_ENV = production

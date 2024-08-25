@@ -77,10 +77,12 @@ export default class Preloader extends Component {
         });
       });
     } else {
-      const imgLoaded = imagesLoaded(content);
+      const loadImages = new Promise((resolve) => {
+        imagesLoaded(content, { background: true }, resolve);
+      });
 
       return new Promise((res) => {
-        imgLoaded.on('done', () => {
+        loadImages.then(() => {
           res();
         });
       });
