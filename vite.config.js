@@ -1,8 +1,8 @@
 // vite.config.js
-import { glslify } from 'vite-plugin-glslify';
+import glsl from 'vite-plugin-glsl';
 
 export default {
-  plugins: [glslify()],
+  plugins: [glsl()],
   build: {
     outDir: 'dist',
     ssrManifest: true,

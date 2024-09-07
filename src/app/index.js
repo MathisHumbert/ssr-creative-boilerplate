@@ -5,14 +5,17 @@ import './utils/scroll';
 import AutoBind from 'auto-bind';
 import NormalizeWheel from 'normalize-wheel';
 import FontFaceObserver from 'fontfaceobserver';
-import * as THREE from 'three';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Stats from 'stats.js';
 
-import Canvas from './components/Canvas';
+import ThreeCanvas from './canvas/Three';
+import OglCanvas from './canvas/Ogl';
+
 import Preloader from './components/Preloader';
 import Grid from './components/Grid';
+
+import Clock from './classes/Clock';
 
 import Home from './pages/Home';
 import About from './pages/About';
@@ -25,10 +28,11 @@ export default class App {
   constructor() {
     AutoBind(this);
 
+    this.clock = new Clock();
     this.url = window.location.href;
     this.isLoading = false;
-    this.clock = new THREE.Clock();
     this.odlElapsedTime = 0;
+    this.webglLibrary = 'three'; // ogl || three;
 
     if (import.meta.env.VITE_DEV_MODE === 'true') {
       this.createStats();
@@ -71,11 +75,20 @@ export default class App {
   }
 
   createCanvas() {
-    this.canvas = new Canvas({ template: this.template });
+    this.canvas = null;
+
+    if (this.webglLibrary === 'three') {
+      this.canvas = new ThreeCanvas({ template: this.template });
+    } else {
+      this.canvas = new OglCanvas({ template: this.template });
+    }
   }
 
   createPreloader() {
-    this.preloader = new Preloader();
+    this.preloader = new Preloader({
+      library: this.webglLibrary,
+      gl: this.canvas.gl,
+    });
 
     this.preloader.preload(this.content);
 

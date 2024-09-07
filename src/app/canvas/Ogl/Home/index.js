@@ -1,25 +1,21 @@
-import * as THREE from 'three';
-
 import Media from './Media';
 
 export default class Home {
-  constructor({ scene, screen, viewport }) {
+  constructor({ gl, scene, screen, viewport }) {
+    this.gl = gl;
     this.scene = scene;
     this.screen = screen;
     this.viewport = viewport;
 
-    this.geometry = new THREE.PlaneGeometry(1, 1, 16, 16);
-
     this.createMedia();
-
     this.show();
   }
 
   createMedia() {
     this.media = new Media({
       element: document.querySelector('.home__media'),
+      gl: this.gl,
       scene: this.scene,
-      geometry: this.geometry,
       screen: this.screen,
       viewport: this.viewport,
     });
@@ -62,7 +58,7 @@ export default class Home {
    * Destroy.
    */
   destroy() {
-    if (this.media && this.media.destroy()) {
+    if (this.media && this.media.destroy) {
       this.media.destroy();
     }
   }
