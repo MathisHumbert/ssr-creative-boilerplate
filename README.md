@@ -1,6 +1,6 @@
 ## Mathis Humbert
 
-A boilerplate template for creative websites using JavaScript (OOP) with no framework, GSAP and WebGL via THREE, working with express for SSR.
+A boilerplate template for creative websites using JavaScript (OOP) with no framework, GSAP and WebGL via THREE or OGL, working with express for SSR.
 
 ### Description
 
@@ -8,7 +8,7 @@ This boilerplate is a modern version of "bizarroilerplate" that you can find ove
 
 I changed some part of this template bases for my own use.
 
-I replaced Webpack with Vite.js, replaced OGL with THREE for 3D and updated all of the packages to have an up to date template.
+I replaced Webpack with Vite.js and updated all of the packages to have an up to date template.
 
 It's using Prismic as a CMS, feel free to replace it with any other CMS of your choice.
 

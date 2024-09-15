@@ -16,6 +16,7 @@ import Preloader from './components/Preloader';
 import Grid from './components/Grid';
 
 import Clock from './classes/Clock';
+import Responsive from './classes/Responsive';
 
 import Home from './pages/Home';
 import About from './pages/About';
@@ -32,7 +33,7 @@ export default class App {
     this.url = window.location.href;
     this.isLoading = false;
     this.odlElapsedTime = 0;
-    this.webglLibrary = 'three'; // ogl || three;
+    this.webglLibrary = 'ogl'; // ogl || three;
 
     if (import.meta.env.VITE_DEV_MODE === 'true') {
       this.createStats();
@@ -45,6 +46,7 @@ export default class App {
   init() {
     this.createContent();
 
+    this.createResponsive();
     this.createCanvas();
     this.createPages();
     this.createPreloader();
@@ -78,9 +80,15 @@ export default class App {
     this.canvas = null;
 
     if (this.webglLibrary === 'three') {
-      this.canvas = new ThreeCanvas({ template: this.template });
+      this.canvas = new ThreeCanvas({
+        template: this.template,
+        size: this.responsive.size,
+      });
     } else {
-      this.canvas = new OglCanvas({ template: this.template });
+      this.canvas = new OglCanvas({
+        template: this.template,
+        size: this.responsive.size,
+      });
     }
   }
 
@@ -130,6 +138,10 @@ export default class App {
       desktop: { count: 12, margin: 32, gutter: 20 },
       mobile: { count: 4, margin: 24, gutter: 20 },
     });
+  }
+
+  createResponsive() {
+    this.responsive = new Responsive();
   }
 
   /**
@@ -205,13 +217,17 @@ export default class App {
   }
 
   onResize() {
+    if (this.responsive && this.responsive.onResize) {
+      this.responsive.onResize();
+    }
+
     if (this.page && this.page.onResize) {
-      this.page.onResize();
+      this.page.onResize(this.responsive.size, this.responsive.fontSize);
     }
 
     window.requestAnimationFrame(() => {
       if (this.canvas && this.canvas.onResize) {
-        this.canvas.onResize();
+        this.canvas.onResize(this.responsive.size);
       }
     });
   }

@@ -4,22 +4,33 @@ import Home from './Home';
 import About from './About';
 import postFragment from '../../shaders/post-fragment.glsl';
 
-export default class OglCanvas {
-  constructor({ template }) {
+export default class Canvas {
+  constructor({ template, size }) {
     this.template = template;
-    this.resolution = new Vec2();
+    this.screen = size;
 
+    this.createRender();
     this.createScene();
     this.createCamera();
-    this.createRender();
     this.createPost();
 
-    this.onResize();
+    this.onResize(size);
   }
 
   /**
    * THREE.
    */
+  createRender() {
+    this.renderer = new Renderer({
+      alpha: true,
+      dpr: Math.min(window.devicePixelRatio, 2),
+    });
+    this.gl = this.renderer.gl;
+    this.renderer.setSize(this.screen.width, this.screen.height);
+
+    document.body.appendChild(this.gl.canvas);
+  }
+
   createScene() {
     this.scene = new Transform();
   }
@@ -27,23 +38,11 @@ export default class OglCanvas {
   createCamera() {
     this.camera = new Camera(this.gl, {
       fov: 45,
-      aspect: window.innerWidth / window.innerHeight,
+      aspect: this.screen.width / this.screen.height,
       near: 0.1,
       far: 100,
     });
     this.camera.position.z = 5;
-  }
-
-  createRender() {
-    this.renderer = new Renderer({
-      alpha: true,
-
-      dpr: Math.min(window.devicePixelRatio, 2),
-    });
-    this.gl = this.renderer.gl;
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
-
-    document.body.appendChild(this.gl.canvas);
   }
 
   createPost() {
@@ -51,7 +50,7 @@ export default class OglCanvas {
     this.pass = this.post.addPass({
       fragment: postFragment,
       uniforms: {
-        uResolution: { value: new Vec2() },
+        uResolution: { value: new Vec2(this.screen.width, this.screen.height) },
       },
     });
   }
@@ -135,11 +134,8 @@ export default class OglCanvas {
     this.template = template;
   }
 
-  onResize() {
-    this.screen = {
-      width: window.innerWidth,
-      height: window.innerHeight,
-    };
+  onResize(size) {
+    this.screen = size;
 
     this.renderer.setSize(this.screen.width, this.screen.height);
     this.renderer.dpr = Math.min(window.devicePixelRatio, 2);
