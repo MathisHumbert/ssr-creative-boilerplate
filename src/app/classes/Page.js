@@ -1,12 +1,9 @@
 import autoBind from 'auto-bind';
 import EventEmitter from 'events';
-import Prefix from 'prefix';
 import gsap from 'gsap';
 
 import LazyLoad from './LazyLoad';
-import { Detection } from './Detection';
 
-import { clamp, lerp } from '../utils/math';
 import { map, each } from '../utils/dom';
 import { easeOut } from '../utils/easing';
 
@@ -35,19 +32,9 @@ export default class Page extends EventEmitter {
       },
     };
     this.isScrollable = isScrollable;
-    this.preventScroll = false;
 
-    this.scroll = {
-      position: 0,
-      current: 0,
-      target: 0,
-      limit: 0,
-      ease: 0.1,
-    };
     this.fontSize = 0;
     this.size = { width: 0, height: 0 };
-
-    this.transformPrefix = Prefix('transform');
 
     this.isVisible = false;
   }
@@ -77,18 +64,7 @@ export default class Page extends EventEmitter {
       }
     });
 
-    if (this.isScrollable) {
-      this.scroll = {
-        position: 0,
-        current: 0,
-        target: 0,
-        limit: this.elements.wrapper.clientHeight - this.size.height,
-        ease: 0.1,
-      };
-    }
-
     this.createAnimations();
-    this.createObserver();
     this.createLazyLoader();
   }
 
@@ -125,31 +101,6 @@ export default class Page extends EventEmitter {
   }
 
   /**
-   * Observer.
-   */
-  createObserver() {
-    this.observer = new window.ResizeObserver((entries) => {
-      let shouldUpdateLimit = false;
-
-      for (const _entry of entries) {
-        if (_entry.target === this.elements.wrapper) {
-          shouldUpdateLimit = true;
-          break;
-        }
-      }
-
-      if (shouldUpdateLimit) {
-        window.requestAnimationFrame(() => {
-          this.scroll.limit =
-            this.elements.wrapper.clientHeight - this.size.height;
-        });
-      }
-    });
-
-    this.observer.observe(this.elements.wrapper);
-  }
-
-  /**
    * Loaders.
    */
   createLazyLoader() {
@@ -165,43 +116,28 @@ export default class Page extends EventEmitter {
   /**
    * Animations.
    */
-  reset() {
-    this.scroll = {
-      position: 0,
-      current: 0,
-      target: 0,
-      limit: 0,
-      ease: 0.1,
-    };
-  }
-
-  set(value) {
-    this.scroll.current = this.scroll.target = this.scroll.last = value;
-
-    this.transform(this.elements.wrapper, this.scroll.current);
-  }
-
   show() {
-    this.reset();
-
+    this.lenis.scrollTo(0, { immediate: true });
     each(this.animations, (animation) => animation.createAnimation());
 
     this.isVisible = true;
 
     this.addEventListeners();
 
-    const tl = gsap.timeline();
+    return new Promise((res) => {
+      const tl = gsap.timeline();
 
-    tl.to(document.documentElement, {
-      backgroundColor: this.element.getAttribute('data-background'),
-      color: this.element.getAttribute('data-color'),
-      ease: easeOut,
-    }).fromTo(
-      this.element,
-      { autoAlpha: 0 },
-      { autoAlpha: 1, ease: easeOut },
-      0
-    );
+      tl.set(document.documentElement, {
+        backgroundColor: this.element.getAttribute('data-background'),
+        color: this.element.getAttribute('data-color'),
+        ease: easeOut,
+      })
+        .set(this.element, { autoAlpha: 1, ease: easeOut }, 0)
+        .call(() => {
+          this.isVisible = true;
+          res();
+        });
+    });
   }
 
   hide() {
@@ -214,14 +150,8 @@ export default class Page extends EventEmitter {
     return new Promise((res) => {
       const tl = gsap.timeline();
 
-      tl.to(this.element, { autoAlpha: 0, ease: easeOut }).call(() => res());
+      tl.set(this.element, { autoAlpha: 0, ease: easeOut }).call(() => res());
     });
-  }
-
-  transform(element, y) {
-    element.style[this.transformPrefix] = `translate3d(0, ${-Math.round(
-      y
-    )}px, 0)`;
   }
 
   /**
@@ -234,8 +164,6 @@ export default class Page extends EventEmitter {
     this.size = size;
 
     window.requestAnimationFrame(() => {
-      this.scroll.limit = this.elements.wrapper.clientHeight - size.height;
-
       each(this.animations, (animation) => {
         if (animation.onResize) {
           animation.onResize();
@@ -244,45 +172,13 @@ export default class Page extends EventEmitter {
     });
   }
 
-  onTouchDown(event) {
-    if (!Detection.isMobile || !this.isVisible || this.preventScroll) return;
+  onTouchDown(event) {}
 
-    this.isDown = true;
+  onTouchMove(event) {}
 
-    this.scroll.position = this.scroll.current;
-    this.start = event.touches ? event.touches[0].clientY : event.clientY;
-  }
+  onTouchUp() {}
 
-  onTouchMove(event) {
-    if (
-      !Detection.isMobile ||
-      !this.isDown ||
-      !this.isVisible ||
-      this.preventScroll
-    )
-      return;
-
-    const y = event.touches ? event.touches[0].clientY : event.clientY;
-    const distance = (this.start - y) * 3;
-
-    this.scroll.target = this.scroll.position + distance;
-  }
-
-  onTouchUp() {
-    if (!Detection.isMobile || !this.isVisible || this.preventScroll) return;
-
-    this.isDown = false;
-  }
-
-  onWheel(normalized) {
-    if (!this.isVisible || this.preventScroll) return;
-
-    const speed = normalized.pixelY;
-
-    this.scroll.target += speed;
-
-    return speed;
-  }
+  onWheel(event) {}
 
   /**
    * Listeners.
@@ -294,33 +190,17 @@ export default class Page extends EventEmitter {
   /**
    * Loop.
    */
-  update() {
-    if (!this.isScrollable || !this.isVisible || this.preventScroll) return;
+  update(time) {
+    if (!this.isScrollable || !this.isVisible) return;
 
-    this.scroll.target = clamp(0, this.scroll.limit, this.scroll.target);
-
-    this.scroll.current = lerp(
-      this.scroll.current,
-      this.scroll.target,
-      this.scroll.ease
-    );
-
-    this.scroll.current = Number(this.scroll.current.toFixed(2));
-
-    if (this.scroll.current < 0.1) {
-      this.scroll.current = 0;
-    }
-
-    if (this.elements.wrapper) {
-      this.transform(this.elements.wrapper, this.scroll.current);
+    if (this.lenis) {
+      this.lenis.raf(time);
     }
 
     each(this.animations, (animation) => {
       if (animation.update) {
-        animation.update(this.scroll);
+        animation.update(this.lenis.scroll);
       }
     });
-
-    this.scroll.last = this.scroll.current;
   }
 }

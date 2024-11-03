@@ -6,13 +6,8 @@
 }
 
 html {
-  @extend %cover;
-
   font-size: calc(100vw / 1920 * 10);
   font-family: $font-satoshi;
-  position: fixed;
-  overflow: hidden;
-  overscroll-behavior: none;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
 
@@ -22,9 +17,24 @@ html {
 }
 
 body {
-  @extend %cover;
+  position: relative;
+}
 
-  position: fixed;
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }
 
 a {
@@ -52,7 +62,8 @@ canvas {
 }
 
 .content {
-  @extend %cover;
+  width: 100%;
+  height: 100%;
 }
 
 [data-animation='appear'] span {

@@ -3,11 +3,11 @@ import './utils/polyfill';
 import './utils/scroll';
 
 import AutoBind from 'auto-bind';
-import NormalizeWheel from 'normalize-wheel';
 import FontFaceObserver from 'fontfaceobserver';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Stats from 'stats.js';
+import Lenis from 'lenis';
 
 import ThreeCanvas from './canvas/Three';
 import OglCanvas from './canvas/Ogl';
@@ -24,6 +24,9 @@ import About from './pages/About';
 import { each } from './utils/dom';
 
 gsap.registerPlugin(ScrollTrigger);
+// gsap.ticker.lagSmoothing(0);
+// gsap.ticker.remove(gsap.updateRoot);
+// ScrollTrigger.clearScrollMemory('manual');
 
 export default class App {
   constructor() {
@@ -34,6 +37,7 @@ export default class App {
     this.isLoading = false;
     this.odlElapsedTime = 0;
     this.webglLibrary = 'ogl'; // ogl || three;
+    this.lenis = null;
 
     if (import.meta.env.VITE_DEV_MODE === 'true') {
       this.createStats();
@@ -50,6 +54,7 @@ export default class App {
     this.createCanvas();
     this.createPages();
     this.createPreloader();
+    this.createLenis();
 
     this.addEventsListeners();
     this.addLinkListeners();
@@ -103,28 +108,6 @@ export default class App {
     this.preloader.on('preloaded', () => this.onPreloaded());
   }
 
-  createScrollTrigger() {
-    ScrollTrigger.scrollerProxy('#wrapper', {
-      scrollTop: (value) => {
-        if (arguments.length) {
-          this.page.scroll.current = value;
-        }
-        return this.page.scroll.current;
-      },
-
-      getBoundingClientRect() {
-        return {
-          top: 0,
-          left: 0,
-          width: window.innerWidth,
-          height: window.innerHeight,
-        };
-      },
-    });
-
-    ScrollTrigger.defaults({ scroller: '#wrapper' });
-  }
-
   createStats() {
     this.stats = new Stats();
 
@@ -144,13 +127,23 @@ export default class App {
     this.responsive = new Responsive();
   }
 
+  createLenis() {
+    this.lenis = new Lenis({
+      smoothWheel: true,
+      syncTouch: true,
+      lerp: 0.125,
+    });
+    this.lenis.scrollTo(0, { immediate: true });
+    this.lenis.on('scroll', ScrollTrigger.update);
+
+    this.page.lenis = this.lenis;
+  }
+
   /**
    * Events.
    */
   onPreloaded() {
     this.onResize();
-
-    this.createScrollTrigger();
 
     this.canvas.onPreloaded();
 
@@ -171,6 +164,8 @@ export default class App {
 
     this.url = url;
     this.isLoading = true;
+
+    this.page.lenis = null;
 
     this.canvas.onChangeStart(this.template, url);
 
@@ -194,11 +189,11 @@ export default class App {
       this.content.innerHTML = divContent.innerHTML;
       this.content.setAttribute('data-template', this.template);
 
-      this.createScrollTrigger();
-
       this.page = this.pages[this.template];
 
       this.page.create();
+
+      this.page.lenis = this.lenis;
 
       await this.preloader.load(this.content);
 
@@ -263,21 +258,21 @@ export default class App {
   }
 
   onWheel(event) {
-    const normalizedWheel = NormalizeWheel(event);
-
     if (this.canvas && this.canvas.onWheel) {
-      this.canvas.onWheel(normalizedWheel);
+      this.canvas.onWheel(event);
     }
 
     if (this.page && this.page.onWheel) {
-      this.page.onWheel(normalizedWheel);
+      this.page.onWheel(event);
     }
   }
 
   /**
    * Loop.
    */
-  update() {
+  update(time) {
+    // gsap.updateRoot(time / 1000);
+
     const elapsedTime = this.clock.getElapsedTime();
     const deltaTime = elapsedTime - this.odlElapsedTime;
     this.odlElapsedTime = elapsedTime;
@@ -287,11 +282,11 @@ export default class App {
     }
 
     if (this.page && this.page.update) {
-      this.page.update();
+      this.page.update(time);
     }
 
     if (this.canvas && this.canvas.update) {
-      this.canvas.update(this.page.scroll.current, deltaTime);
+      this.canvas.update(this.lenis.animatedScroll, deltaTime);
     }
 
     if (this.stats) {

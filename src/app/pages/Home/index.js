@@ -6,9 +6,7 @@ export default class Home extends Page {
       id: 'home',
       classes: {},
       element: '.home',
-      elements: {
-        wrapper: '.home__wrapper',
-      },
+      elements: {},
     });
   }
 
