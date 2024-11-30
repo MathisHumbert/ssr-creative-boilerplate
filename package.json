@@ -33,7 +33,6 @@
     "include-media": "^2.0.0",
     "lenis": "^1.1.14",
     "nodelist-foreach-polyfill": "^1.2.0",
-    "ogl": "^1.0.8",
     "prefix": "^1.0.0",
     "split-type": "^0.3.4",
     "stats.js": "^0.17.0",

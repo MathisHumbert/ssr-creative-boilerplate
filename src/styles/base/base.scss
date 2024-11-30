@@ -8,8 +8,18 @@
 html {
   font-size: calc(100vw / 1920 * 10);
   font-family: $font-satoshi;
-  -moz-osx-font-smoothing: grayscale;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  // Comment to show scrollbar
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &-webkit-scrollbar {
+    display: none;
+  }
 
   @include media('<phone') {
     font-size: calc(100vw / 1000 * 10);

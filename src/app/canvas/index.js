@@ -92,13 +92,17 @@ export default class Canvas {
   }
 
   onChangeStart() {
+    let promise;
+
     if (this.home) {
-      this.home.hide();
+      promise = this.home.hide();
     }
 
     if (this.about) {
-      this.about.hide();
+      promise = this.about.hide();
     }
+
+    return promise;
   }
 
   onChangeEnd(template) {

@@ -9,8 +9,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Stats from 'stats.js';
 import Lenis from 'lenis';
 
-import ThreeCanvas from './canvas/Three';
-import OglCanvas from './canvas/Ogl';
+import Canvas from './canvas';
 
 import Preloader from './components/Preloader';
 import Grid from './components/Grid';
@@ -24,9 +23,6 @@ import About from './pages/About';
 import { each } from './utils/dom';
 
 gsap.registerPlugin(ScrollTrigger);
-// gsap.ticker.lagSmoothing(0);
-// gsap.ticker.remove(gsap.updateRoot);
-// ScrollTrigger.clearScrollMemory('manual');
 
 export default class App {
   constructor() {
@@ -36,7 +32,6 @@ export default class App {
     this.url = window.location.href;
     this.isLoading = false;
     this.odlElapsedTime = 0;
-    this.webglLibrary = 'ogl'; // ogl || three;
     this.lenis = null;
 
     if (import.meta.env.VITE_DEV_MODE === 'true') {
@@ -82,26 +77,14 @@ export default class App {
   }
 
   createCanvas() {
-    this.canvas = null;
-
-    if (this.webglLibrary === 'three') {
-      this.canvas = new ThreeCanvas({
-        template: this.template,
-        size: this.responsive.size,
-      });
-    } else {
-      this.canvas = new OglCanvas({
-        template: this.template,
-        size: this.responsive.size,
-      });
-    }
+    this.canvas = new Canvas({
+      template: this.template,
+      size: this.responsive.size,
+    });
   }
 
   createPreloader() {
-    this.preloader = new Preloader({
-      library: this.webglLibrary,
-      gl: this.canvas.gl,
-    });
+    this.preloader = new Preloader();
 
     this.preloader.preload(this.content);
 
@@ -133,7 +116,8 @@ export default class App {
       syncTouch: true,
       lerp: 0.125,
     });
-    this.lenis.scrollTo(0, { immediate: true });
+    this.lenis.stop();
+    this.lenis.scrollTo(0, { immediate: true, force: true });
     this.lenis.on('scroll', ScrollTrigger.update);
 
     this.page.lenis = this.lenis;
@@ -165,11 +149,13 @@ export default class App {
     this.url = url;
     this.isLoading = true;
 
+    this.lenis.stop();
     this.page.lenis = null;
 
-    this.canvas.onChangeStart(this.template, url);
-
-    await this.page.hide();
+    await Promise.all([
+      this.page.hide(),
+      this.canvas.onChangeStart(this.template, url),
+    ]);
 
     const request = await window.fetch(url);
 
@@ -271,8 +257,6 @@ export default class App {
    * Loop.
    */
   update(time) {
-    // gsap.updateRoot(time / 1000);
-
     const elapsedTime = this.clock.getElapsedTime();
     const deltaTime = elapsedTime - this.odlElapsedTime;
     this.odlElapsedTime = elapsedTime;
@@ -286,7 +270,7 @@ export default class App {
     }
 
     if (this.canvas && this.canvas.update) {
-      this.canvas.update(this.lenis.animatedScroll, deltaTime);
+      this.canvas.update(this.lenis.scroll, deltaTime);
     }
 
     if (this.stats) {

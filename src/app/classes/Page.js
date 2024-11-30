@@ -117,10 +117,9 @@ export default class Page extends EventEmitter {
    * Animations.
    */
   show() {
-    this.lenis.scrollTo(0, { immediate: true });
-    each(this.animations, (animation) => animation.createAnimation());
+    this.lenis.scrollTo(0, { immediate: true, force: true });
 
-    this.isVisible = true;
+    each(this.animations, (animation) => animation.createAnimation());
 
     this.addEventListeners();
 
@@ -130,10 +129,10 @@ export default class Page extends EventEmitter {
       tl.set(document.documentElement, {
         backgroundColor: this.element.getAttribute('data-background'),
         color: this.element.getAttribute('data-color'),
-        ease: easeOut,
       })
-        .set(this.element, { autoAlpha: 1, ease: easeOut }, 0)
+        .set(this.element, { autoAlpha: 1 }, 0)
         .call(() => {
+          this.lenis.start();
           this.isVisible = true;
           res();
         });

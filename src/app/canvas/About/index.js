@@ -30,9 +30,13 @@ export default class About {
   }
 
   hide() {
+    let promise;
+
     if (this.cube && this.cube.hide) {
-      this.cube.hide();
+      promise = this.cube.hide();
     }
+
+    return promise;
   }
 
   /**
