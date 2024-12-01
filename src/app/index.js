@@ -100,10 +100,7 @@ export default class App {
   }
 
   createGrid() {
-    new Grid({
-      desktop: { count: 12, margin: 32, gutter: 20 },
-      mobile: { count: 4, margin: 24, gutter: 20 },
-    });
+    this.grid = new Grid();
   }
 
   createResponsive() {
@@ -119,6 +116,7 @@ export default class App {
     this.lenis.stop();
     this.lenis.scrollTo(0, { immediate: true, force: true });
     this.lenis.on('scroll', ScrollTrigger.update);
+    this.lenis.on('scroll', this.onWheel);
 
     this.page.lenis = this.lenis;
   }
@@ -204,6 +202,10 @@ export default class App {
 
     if (this.page && this.page.onResize) {
       this.page.onResize(this.responsive.size, this.responsive.fontSize);
+    }
+
+    if (this.grid && this.grid.onResize) {
+      this.grid.onResize();
     }
 
     window.requestAnimationFrame(() => {
@@ -304,8 +306,6 @@ export default class App {
       passive: true,
     });
     window.addEventListener('touchend', this.onTouchUp, { passive: true });
-
-    window.addEventListener('wheel', this.onWheel, { passive: true });
   }
 
   addLinkListeners() {

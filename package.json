@@ -20,7 +20,7 @@
     "node-fetch": "^3.3.2",
     "nodemon": "^3.1.4",
     "pug": "^3.0.2",
-    "sass": "^1.71.0",
+    "sass": "^1.81.0",
     "sirv": "^2.0.4"
   },
   "devDependencies": {
@@ -30,7 +30,6 @@
     "fontfaceobserver": "^2.3.0",
     "gsap": "^3.12.5",
     "imagesloaded": "^5.0.0",
-    "include-media": "^2.0.0",
     "lenis": "^1.1.14",
     "nodelist-foreach-polyfill": "^1.2.0",
     "prefix": "^1.0.0",

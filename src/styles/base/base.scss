@@ -1,3 +1,6 @@
+@use 'sass:map';
+@use '../utils/_index' as *;
+
 *,
 *:after,
 *:before {
@@ -6,12 +9,15 @@
 }
 
 html {
-  font-size: calc(100vw / 1920 * 10);
+  font-size: calc(100vw / $sizes-desktop * 10);
   font-family: $font-satoshi;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  background: $color-black;
+  color: $color-white;
 
   // Comment to show scrollbar
   -ms-overflow-style: none;
@@ -21,8 +27,8 @@ html {
     display: none;
   }
 
-  @include media('<phone') {
-    font-size: calc(100vw / 1000 * 10);
+  @include mobile {
+    font-size: calc(100vw / $sizes-mobile * 10);
   }
 }
 

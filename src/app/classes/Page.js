@@ -157,8 +157,6 @@ export default class Page extends EventEmitter {
    * Events.
    */
   onResize(size, fontSize) {
-    if (!this.elements.wrapper) return;
-
     this.fontSize = fontSize;
     this.size = size;
 
