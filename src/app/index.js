@@ -67,8 +67,8 @@ export default class App {
 
   createPages() {
     this.pages = {
-      home: new Home(),
-      about: new About(),
+      home: new Home({ responsive: this.responsive }),
+      about: new About({ responsive: this.responsive }),
     };
 
     this.page = this.pages[this.template];

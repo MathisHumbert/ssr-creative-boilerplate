@@ -69,6 +69,10 @@ $grid: (
 $grid-count: var(--grid-count);
 $grid-gutter: var(--grid-gutter);
 $grid-margin: var(--grid-margin);
+$grid-width: calc(100vw - (2 * $grid-margin));
+$grid-column-width: calc(
+  ($grid-width - (($grid-count - 1) * $grid-gutter)) / $grid-count
+);
 
 $sizes-desktop: var(--sizes-desktop);
 $sizes-mobile: var(--sizes-mobile);

@@ -1,12 +1,13 @@
 import Page from '../../classes/Page';
 
 export default class Home extends Page {
-  constructor() {
+  constructor({ responsive }) {
     super({
       id: 'home',
       classes: {},
       element: '.home',
       elements: {},
+      responsive,
     });
   }
 

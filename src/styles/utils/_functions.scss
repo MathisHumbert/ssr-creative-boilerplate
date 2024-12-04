@@ -10,3 +10,9 @@
     @return null;
   }
 }
+
+@function columns($columns) {
+  @return calc(
+    (#{$columns} * $grid-column-width) + ((#{$columns} - 1) * $grid-gutter)
+  );
+}

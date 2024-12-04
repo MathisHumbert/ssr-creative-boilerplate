@@ -12,7 +12,14 @@ import Text from '../animations/Text';
 import Title from '../animations/Title';
 
 export default class Page extends EventEmitter {
-  constructor({ classes, id, element, elements, isScrollable = true }) {
+  constructor({
+    classes,
+    id,
+    element,
+    elements,
+    isScrollable = true,
+    responsive,
+  }) {
     super();
 
     autoBind(this);
@@ -33,8 +40,12 @@ export default class Page extends EventEmitter {
     };
     this.isScrollable = isScrollable;
 
-    this.fontSize = 0;
-    this.size = { width: 0, height: 0 };
+    this.fontSize = responsive.fontSize;
+    this.size = {
+      width: responsive.size.width,
+      height: responsive.size.height,
+    };
+    this.scroll = 0;
 
     this.isVisible = false;
   }
@@ -118,6 +129,7 @@ export default class Page extends EventEmitter {
    */
   show() {
     this.lenis.scrollTo(0, { immediate: true, force: true });
+    this.scroll = 0;
 
     each(this.animations, (animation) => animation.createAnimation());
 
@@ -175,7 +187,9 @@ export default class Page extends EventEmitter {
 
   onTouchUp() {}
 
-  onWheel(event) {}
+  onWheel(event) {
+    this.scroll = event.scroll;
+  }
 
   /**
    * Listeners.
