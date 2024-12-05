@@ -1,6 +1,4 @@
 import '../styles/index.scss';
-import './utils/polyfill';
-import './utils/scroll';
 
 import AutoBind from 'auto-bind';
 import FontFaceObserver from 'fontfaceobserver';

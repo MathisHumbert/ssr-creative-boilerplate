@@ -5,7 +5,6 @@ import gsap from 'gsap';
 import LazyLoad from './LazyLoad';
 
 import { map, each } from '../utils/dom';
-import { easeOut } from '../utils/easing';
 
 import Appear from '../animations/Appear';
 import Text from '../animations/Text';
@@ -161,7 +160,7 @@ export default class Page extends EventEmitter {
     return new Promise((res) => {
       const tl = gsap.timeline();
 
-      tl.set(this.element, { autoAlpha: 0, ease: easeOut }).call(() => res());
+      tl.set(this.element, { autoAlpha: 0 }).call(() => res());
     });
   }
 

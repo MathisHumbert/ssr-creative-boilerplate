@@ -31,7 +31,6 @@
     "gsap": "^3.12.5",
     "imagesloaded": "^5.0.0",
     "lenis": "^1.1.14",
-    "nodelist-foreach-polyfill": "^1.2.0",
     "prefix": "^1.0.0",
     "split-type": "^0.3.4",
     "stats.js": "^0.17.0",
