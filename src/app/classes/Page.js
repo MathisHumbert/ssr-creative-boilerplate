@@ -11,14 +11,7 @@ import Text from '../animations/Text';
 import Title from '../animations/Title';
 
 export default class Page extends EventEmitter {
-  constructor({
-    classes,
-    id,
-    element,
-    elements,
-    isScrollable = true,
-    responsive,
-  }) {
+  constructor({ classes, id, element, elements, responsive }) {
     super();
 
     autoBind(this);
@@ -37,7 +30,6 @@ export default class Page extends EventEmitter {
         ...elements,
       },
     };
-    this.isScrollable = isScrollable;
 
     this.fontSize = responsive.fontSize;
     this.size = {
@@ -201,7 +193,7 @@ export default class Page extends EventEmitter {
    * Loop.
    */
   update(time) {
-    if (!this.isScrollable || !this.isVisible) return;
+    if (!this.isVisible) return;
 
     if (this.lenis) {
       this.lenis.raf(time);

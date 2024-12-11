@@ -1,4 +1,5 @@
 import '../styles/index.scss';
+import './utils/scroll';
 
 import AutoBind from 'auto-bind';
 import FontFaceObserver from 'fontfaceobserver';
@@ -112,7 +113,6 @@ export default class App {
       lerp: 0.125,
     });
     this.lenis.stop();
-    this.lenis.scrollTo(0, { immediate: true, force: true });
     this.lenis.on('scroll', ScrollTrigger.update);
     this.lenis.on('scroll', this.onWheel);
 
