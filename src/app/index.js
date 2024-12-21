@@ -148,10 +148,7 @@ export default class App {
     this.lenis.stop();
     this.page.lenis = null;
 
-    await Promise.all([
-      this.page.hide(),
-      this.canvas.onChangeStart(this.template, url),
-    ]);
+    await Promise.all([this.page.hide(), this.canvas.hide(this.template, url)]);
 
     const request = await window.fetch(url);
 

@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Disallow: /includes/
+Disallow: /api/
+
+# Sitemaps
+Sitemap: https://ssr-creative-boilerplate.vercel.app/sitemap.xml

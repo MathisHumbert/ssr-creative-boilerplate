@@ -84,14 +84,14 @@ export default class Canvas {
    * Events.
    */
   onPreloaded() {
-    this.onChangeEnd(this.template);
+    this.show(this.template);
   }
 
   onLoaded(template) {
-    this.onChangeEnd(template);
+    this.show(template);
   }
 
-  onChangeStart() {
+  hide() {
     let promise;
 
     if (this.home) {
@@ -105,7 +105,7 @@ export default class Canvas {
     return promise;
   }
 
-  onChangeEnd(template) {
+  show(template) {
     if (this.home) {
       this.destroyHome();
     }
