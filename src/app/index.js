@@ -29,7 +29,8 @@ export default class App {
 
     this.clock = new Clock();
     this.url = window.location.href;
-    this.isLoading = false;
+    this.lastUrl = window.location.pathname;
+    this.isNavigating = false;
     this.odlElapsedTime = 0;
     this.lenis = null;
 
@@ -130,7 +131,15 @@ export default class App {
     this.page.show();
   }
 
-  onPopState() {
+  onPopState(e) {
+    if (this.isNavigating) {
+      e.preventDefault();
+      window.history.pushState({}, '', this.lastUrl);
+      return;
+    }
+
+    this.lastUrl = window.location.pathname;
+
     this.onChange({
       url: window.location.pathname,
       push: false,
@@ -138,12 +147,12 @@ export default class App {
   }
 
   async onChange({ url, push }) {
-    if (url === this.url || this.isLoading) return;
+    if (url === this.url || this.isNavigating) return;
 
     ScrollTrigger.getAll().forEach((t) => t.kill());
 
     this.url = url;
-    this.isLoading = true;
+    this.isNavigating = true;
 
     this.lenis.stop();
     this.page.lenis = null;
@@ -184,7 +193,7 @@ export default class App {
 
       this.addLinkListeners();
 
-      this.isLoading = false;
+      this.isNavigating = false;
     } else {
       console.log('error');
     }
