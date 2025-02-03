@@ -2,7 +2,6 @@ import '../styles/index.scss';
 import './utils/scroll';
 
 import AutoBind from 'auto-bind';
-import FontFaceObserver from 'fontfaceobserver';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Stats from 'stats.js';
@@ -28,9 +27,9 @@ export default class App {
     AutoBind(this);
 
     this.clock = new Clock();
-    this.url = window.location.href;
+    this.url = window.location.pathname;
     this.lastUrl = window.location.pathname;
-    this.isNavigating = false;
+    this.isNavigating = true;
     this.odlElapsedTime = 0;
     this.lenis = null;
 
@@ -43,11 +42,11 @@ export default class App {
   }
 
   init() {
-    this.createContent();
-
     this.createResponsive();
+
     this.createCanvas();
     this.createPages();
+
     this.createPreloader();
     this.createLenis();
 
@@ -60,25 +59,27 @@ export default class App {
   /**
    * Create.
    */
-  createContent() {
+  createPages() {
     this.content = document.querySelector('.content');
     this.template = this.content.getAttribute('data-template');
-  }
 
-  createPages() {
     this.pages = {
       home: new Home({ responsive: this.responsive }),
       about: new About({ responsive: this.responsive }),
     };
 
+    this.templates = {
+      '/': 'home',
+      '/about': 'about',
+    };
+
     this.page = this.pages[this.template];
 
-    this.page.create(true);
+    this.page.create();
   }
 
   createCanvas() {
     this.canvas = new Canvas({
-      template: this.template,
       size: this.responsive.size,
     });
   }
@@ -86,7 +87,7 @@ export default class App {
   createPreloader() {
     this.preloader = new Preloader();
 
-    this.preloader.preload(this.content);
+    this.preloader.preloadPage(this.content);
 
     this.preloader.on('preloaded', () => this.onPreloaded());
   }
@@ -123,12 +124,14 @@ export default class App {
   /**
    * Events.
    */
-  onPreloaded() {
+  async onPreloaded() {
     this.onResize();
 
-    this.canvas.onPreloaded();
+    await Promise.all([this.page.show(null), this.canvas.show(this.template)]);
 
-    this.page.show();
+    this.lenis.start();
+
+    this.isNavigating = false;
   }
 
   onPopState(e) {
@@ -137,19 +140,18 @@ export default class App {
       window.history.pushState({}, '', this.lastUrl);
       return;
     }
-
     this.lastUrl = window.location.pathname;
 
     this.onChange({
-      url: window.location.pathname,
+      url: window.location.href,
       push: false,
     });
   }
 
   async onChange({ url, push }) {
-    if (url === this.url || this.isNavigating) return;
+    url = url.replace(window.location.origin, '');
 
-    ScrollTrigger.getAll().forEach((t) => t.kill());
+    if (url === this.url || this.isNavigating) return;
 
     this.url = url;
     this.isNavigating = true;
@@ -157,7 +159,12 @@ export default class App {
     this.lenis.stop();
     this.page.lenis = null;
 
-    await Promise.all([this.page.hide(), this.canvas.hide(this.template, url)]);
+    await Promise.all([
+      this.page.hide(this.templates[url]),
+      this.canvas.hide(this.templates[url]),
+    ]);
+
+    ScrollTrigger.getAll().forEach((t) => t.kill());
 
     const request = await window.fetch(url);
 
@@ -171,6 +178,8 @@ export default class App {
         window.history.pushState({}, '', url);
       }
 
+      const prevTemplate = this.template;
+
       const divContent = div.querySelector('.content');
       this.template = divContent.getAttribute('data-template');
 
@@ -181,15 +190,19 @@ export default class App {
 
       this.page.create();
 
+      this.lenis.scrollTo(0, { immediate: true, force: true });
       this.page.lenis = this.lenis;
 
-      await this.preloader.load(this.content);
+      await this.preloader.loadPage(this.content);
 
       this.onResize();
 
-      this.canvas.onLoaded(this.template);
+      await Promise.all([
+        this.page.show(prevTemplate),
+        this.canvas.show(this.template),
+      ]);
 
-      this.page.show();
+      this.lenis.start();
 
       this.addLinkListeners();
 
@@ -271,8 +284,12 @@ export default class App {
       this.stats.begin();
     }
 
+    if (!this.isNavigating) {
+      this.lenis.raf(time);
+    }
+
     if (this.page && this.page.update) {
-      this.page.update(time);
+      this.page.update(this.lenis.scroll, deltaTime);
     }
 
     if (this.canvas && this.canvas.update) {
@@ -341,8 +358,4 @@ export default class App {
   }
 }
 
-const satoshiFont = new FontFaceObserver('Satoshi');
-
-Promise.all([satoshiFont.load()])
-  .then(() => new App())
-  .catch(() => new App());
+new App();

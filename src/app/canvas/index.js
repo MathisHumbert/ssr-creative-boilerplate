@@ -4,8 +4,8 @@ import Home from './Home';
 import About from './About';
 
 export default class Canvas {
-  constructor({ template, size }) {
-    this.template = template;
+  constructor({ size }) {
+    this.template = null;
     this.screen = size;
 
     this.createScene();
@@ -81,31 +81,25 @@ export default class Canvas {
   }
 
   /**
-   * Events.
+   * Animations.
    */
-  onPreloaded() {
-    this.show(this.template);
-  }
-
-  onLoaded(template) {
-    this.show(template);
-  }
-
-  hide() {
+  hide(nextTemplate) {
     let promise;
 
     if (this.home) {
-      promise = this.home.hide();
+      promise = this.home.hide(nextTemplate);
     }
 
     if (this.about) {
-      promise = this.about.hide();
+      promise = this.about.hide(nextTemplate);
     }
 
     return promise;
   }
 
   show(template) {
+    let promise;
+
     if (this.home) {
       this.destroyHome();
     }
@@ -116,15 +110,24 @@ export default class Canvas {
 
     if (template === 'home') {
       this.createHome();
+
+      promise = this.home.show(this.template);
     }
 
     if (template === 'about') {
       this.createAbout();
+
+      promise = this.about.show(this.template);
     }
 
     this.template = template;
+
+    return promise;
   }
 
+  /**
+   * Events.
+   */
   onResize(size) {
     this.screen = size;
 

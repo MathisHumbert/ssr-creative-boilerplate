@@ -1,7 +1,9 @@
 import * as THREE from 'three';
 import imagesLoaded from 'imagesloaded';
+import FontFaceObserver from 'fontfaceobserver';
 
 import Component from '../classes/Component';
+import { map } from '../utils/dom';
 
 export default class Preloader extends Component {
   constructor() {
@@ -15,61 +17,49 @@ export default class Preloader extends Component {
     this.textureLoader = new THREE.TextureLoader();
   }
 
-  preload(content) {
+  /**
+   * Events.
+   */
+  preloadPage(content) {
     this.loadedTextureUrl.push(window.location.pathname);
 
     const images = content.querySelectorAll('data-src');
 
-    const preloadImages = new Promise((resolve) => {
-      imagesLoaded(content, { background: true }, resolve);
+    const preloadImages = new Promise((res) => {
+      imagesLoaded(content, { background: true }, res);
     });
 
-    const preloadTextures = Promise.all(
-      [...images, 'texture.jpeg'].map(
-        (image) =>
-          new Promise((resolve) => {
-            this.textureLoader.load(image, (texture) => {
-              texture.generateMipmaps = false;
-              texture.minFilter = THREE.LinearFilter;
-              texture.needsUpdate = true;
+    const preloadTextures = this.loadTextures([...images, 'texture.jpeg']);
 
-              window.TEXTURES[image] = texture;
-              resolve();
-            });
-          })
-      )
-    );
+    const preloaderAnimation = this.animatePreloader();
 
-    Promise.all([preloadImages, preloadTextures]).then(() => {
+    const preloadFonts = this.loadFonts();
+
+    Promise.all([
+      preloadImages,
+      preloadTextures,
+      preloadFonts,
+      preloaderAnimation,
+    ]).then(() => {
+      if (this.element) {
+        this.element.parentNode.removeChild(this.element);
+      }
+
       this.emit('preloaded');
     });
   }
 
-  async load(content) {
+  loadPage(content) {
     const images = content.querySelectorAll('data-src');
 
     if (!this.loadedTextureUrl.includes(window.location.pathname)) {
       this.loadedTextureUrl.push(window.location.pathname);
 
-      const loadImages = new Promise((resolve) => {
-        imagesLoaded(content, { background: true }, resolve);
+      const loadImages = new Promise((res) => {
+        imagesLoaded(content, { background: true }, res);
       });
 
-      const loadTextures = Promise.all(
-        [...images, 'texture.jpeg'].map(
-          (image) =>
-            new Promise((resolve) => {
-              this.textureLoader.load(image, (texture) => {
-                texture.generateMipmaps = false;
-                texture.minFilter = THREE.LinearFilter;
-                texture.needsUpdate = true;
-
-                window.TEXTURES[image] = texture;
-                resolve();
-              });
-            })
-        )
-      );
+      const loadTextures = this.loadTextures(images);
 
       return new Promise((res) => {
         Promise.all([loadImages, loadTextures]).then(() => {
@@ -77,8 +67,8 @@ export default class Preloader extends Component {
         });
       });
     } else {
-      const loadImages = new Promise((resolve) => {
-        imagesLoaded(content, { background: true }, resolve);
+      const loadImages = new Promise((res) => {
+        imagesLoaded(content, { background: true }, res);
       });
 
       return new Promise((res) => {
@@ -87,5 +77,39 @@ export default class Preloader extends Component {
         });
       });
     }
+  }
+
+  loadFonts() {
+    const satoshiFont = new FontFaceObserver('Satoshi');
+
+    return Promise.all([satoshiFont.load()]);
+  }
+
+  loadTextures(images) {
+    return Promise.all(
+      map(
+        images,
+        (image) =>
+          new Promise((res) => {
+            this.textureLoader.load(image, (texture) => {
+              texture.generateMipmaps = false;
+              texture.minFilter = THREE.LinearFilter;
+              texture.needsUpdate = true;
+
+              window.TEXTURES[image] = texture;
+              res();
+            });
+          })
+      )
+    );
+  }
+
+  /**
+   * Animations.
+   */
+  animatePreloader() {
+    return new Promise(async (res) => {
+      res();
+    });
   }
 }

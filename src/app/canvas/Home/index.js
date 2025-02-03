@@ -11,8 +11,6 @@ export default class Home {
     this.geometry = new THREE.PlaneGeometry(1, 1, 16, 16);
 
     this.createMedia();
-
-    this.show();
   }
 
   createMedia() {
@@ -28,17 +26,21 @@ export default class Home {
   /**
    * Animations.
    */
-  show() {
+  show(prevTemplate) {
+    let promise;
+
     if (this.media && this.media.show) {
-      this.media.show();
+      promise = this.media.show(prevTemplate);
     }
+
+    return promise;
   }
 
-  hide() {
+  hide(nextTemplate) {
     let promise;
 
     if (this.media && this.media.hide) {
-      promise = this.media.hide();
+      promise = this.media.hide(nextTemplate);
     }
 
     return promise;
