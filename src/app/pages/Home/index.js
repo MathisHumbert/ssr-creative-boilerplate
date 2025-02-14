@@ -14,9 +14,16 @@ export default class Home extends Page {
   }
 
   /**
+   * Create.
+   */
+  create() {
+    super.create();
+  }
+
+  /**
    * Animations.
    */
-  async show(prevTemplate) {
+  show(prevTemplate) {
     let tl = null;
 
     // if (prevTemplate === null) {
@@ -40,7 +47,7 @@ export default class Home extends Page {
     return tl;
   }
 
-  async hide(nextTemplate) {
+  hide(nextTemplate) {
     let tl = null;
 
     // if (nextTemplate === null) {

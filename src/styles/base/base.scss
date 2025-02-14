@@ -78,8 +78,10 @@ canvas {
 }
 
 .content {
+  position: relative;
   width: 100%;
   height: 100%;
+  z-index: z('content');
 }
 
 [data-animation='appear'] span {
