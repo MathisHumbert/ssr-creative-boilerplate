@@ -1,44 +1,45 @@
-import * as THREE from 'three';
+import { Mesh, RawShaderMaterial, Vector2 } from 'three';
 import gsap from 'gsap';
 
 import fragment from '../../shaders/fragment.glsl';
 import vertex from '../../shaders/vertex.glsl';
 
+import { lenis } from '../../classes/Lenis';
+import { responsive } from '../../classes/Responsive';
+
+import { events } from '../../utils/events';
+
 export default class Media {
-  constructor({ element, scene, geometry, screen, viewport }) {
+  constructor({ element, scene, geometry }) {
     this.element = element;
     this.scene = scene;
     this.geometry = geometry;
-    this.screen = screen;
-    this.viewport = viewport;
 
-    this.scroll = 0;
+    this.scroll = lenis.scroll;
     this.isVisible = false;
 
     this.createMaterial();
     this.createMesh();
-
-    this.onResize({ viewport, screen });
+    this.addEventsListeners();
   }
 
   /**
    * Create.
    */
-
   createMaterial() {
     const texture = window.TEXTURES['texture.jpeg'];
 
-    this.material = new THREE.RawShaderMaterial({
+    this.material = new RawShaderMaterial({
       fragmentShader: fragment,
       vertexShader: vertex,
       uniforms: {
         uAlpha: { value: 0 },
         uTexture: { value: texture },
         uResolution: {
-          value: new THREE.Vector2(),
+          value: new Vector2(),
         },
         uImageResolution: {
-          value: new THREE.Vector2(texture.image.width, texture.image.height),
+          value: new Vector2(texture.image.width, texture.image.height),
         },
       },
       depthTest: false,
@@ -48,8 +49,10 @@ export default class Media {
   }
 
   createMesh() {
-    this.mesh = new THREE.Mesh(this.geometry, this.material);
+    this.mesh = new Mesh(this.geometry, this.material);
     this.scene.add(this.mesh);
+
+    this.createBounds();
   }
 
   createBounds() {
@@ -72,9 +75,10 @@ export default class Media {
    */
   updateScale() {
     this.mesh.scale.x =
-      (this.viewport.width * this.bounds.width) / this.screen.width;
+      (responsive.viewport.width * this.bounds.width) / responsive.screen.width;
     this.mesh.scale.y =
-      (this.viewport.height * this.bounds.height) / this.screen.height;
+      (responsive.viewport.height * this.bounds.height) /
+      responsive.screen.height;
 
     this.material.uniforms.uResolution.value.set(
       this.mesh.scale.x,
@@ -84,16 +88,18 @@ export default class Media {
 
   updateX(x = 0) {
     this.mesh.position.x =
-      -this.viewport.width / 2 +
+      -responsive.viewport.width / 2 +
       this.mesh.scale.x / 2 +
-      ((this.bounds.left - x) / this.screen.width) * this.viewport.width;
+      ((this.bounds.left - x) / responsive.screen.width) *
+        responsive.viewport.width;
   }
 
   updateY(y = 0) {
     this.mesh.position.y =
-      this.viewport.height / 2 -
+      responsive.viewport.height / 2 -
       this.mesh.scale.y / 2 -
-      ((this.bounds.top - y) / this.screen.height) * this.viewport.height;
+      ((this.bounds.top - y) / responsive.screen.height) *
+        responsive.viewport.height;
   }
 
   /**
@@ -124,23 +130,30 @@ export default class Media {
   /**
    * Events.
    */
-  onResize({ screen, viewport }) {
-    this.screen = screen;
-    this.viewport = viewport;
-
+  onResize() {
     this.createBounds();
+  }
+
+  onLenis(event) {
+    console.log();
+    this.updateY(event.scroll);
+
+    this.scroll = event.scroll;
+  }
+
+  /**
+   * Listeners.
+   */
+  addEventsListeners() {
+    events.on('resize', this.onResize.bind(this));
+    events.on('update', this.update.bind(this));
+    events.on('lenis', this.onLenis.bind(this));
   }
 
   /**
    * Loop.
    */
-  update(scroll) {
-    if (!this.isVisible) return;
-
-    this.updateY(scroll);
-
-    this.scroll = scroll;
-  }
+  update() {}
 
   /**
    * Destroy.

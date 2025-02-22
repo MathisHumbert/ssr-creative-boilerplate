@@ -1,14 +1,12 @@
-import * as THREE from 'three';
+import { PlaneGeometry } from 'three';
 
 import Media from './Media';
 
 export default class Home {
-  constructor({ scene, screen, viewport }) {
+  constructor({ scene }) {
     this.scene = scene;
-    this.screen = screen;
-    this.viewport = viewport;
 
-    this.geometry = new THREE.PlaneGeometry(1, 1, 16, 16);
+    this.geometry = new PlaneGeometry(1, 1, 16, 16);
 
     this.createMedia();
   }
@@ -44,24 +42,6 @@ export default class Home {
     }
 
     return promise;
-  }
-
-  /**
-   * Events.
-   */
-  onResize({ screen, viewport }) {
-    if (this.media && this.media.onResize) {
-      this.media.onResize({ screen, viewport });
-    }
-  }
-
-  /**
-   * Loop.
-   */
-  update(scroll) {
-    if (this.media && this.media.update) {
-      this.media.update(scroll);
-    }
   }
 
   /**

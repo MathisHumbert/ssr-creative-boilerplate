@@ -1,7 +1,6 @@
 import AutoBind from 'auto-bind';
-import Prefix from 'prefix';
 
-export default class {
+export default class Animation {
   constructor({ element, elements }) {
     AutoBind(this);
 
@@ -14,7 +13,6 @@ export default class {
     this.threshold = isNaN(Number(threshold)) ? 0 : Number(threshold);
 
     this.target = target ? element.closest(target) : element;
-    this.transformPrefix = Prefix('transform');
 
     this.isVisible = false;
     this.isAnimated = false;

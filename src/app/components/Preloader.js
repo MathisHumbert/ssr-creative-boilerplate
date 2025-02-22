@@ -1,9 +1,11 @@
-import * as THREE from 'three';
+import { LinearFilter, TextureLoader } from 'three';
 import imagesLoaded from 'imagesloaded';
 import FontFaceObserver from 'fontfaceobserver';
 
 import Component from '../classes/Component';
+
 import { map } from '../utils/dom';
+import { events } from '../utils/events';
 
 export default class Preloader extends Component {
   constructor() {
@@ -14,7 +16,7 @@ export default class Preloader extends Component {
     this.loadedTextureUrl = [];
     window.TEXTURES = {};
 
-    this.textureLoader = new THREE.TextureLoader();
+    this.textureLoader = new TextureLoader();
   }
 
   /**
@@ -45,7 +47,7 @@ export default class Preloader extends Component {
         this.element.parentNode.removeChild(this.element);
       }
 
-      this.emit('preloaded');
+      events.emit('preloaded');
     });
   }
 
@@ -93,7 +95,7 @@ export default class Preloader extends Component {
           new Promise((res) => {
             this.textureLoader.load(image, (texture) => {
               texture.generateMipmaps = false;
-              texture.minFilter = THREE.LinearFilter;
+              texture.minFilter = LinearFilter;
               texture.needsUpdate = true;
 
               window.TEXTURES[image] = texture;

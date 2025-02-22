@@ -4,11 +4,12 @@ import gsap from 'gsap';
 
 import LazyLoad from './LazyLoad';
 
-import { map, each } from '../utils/dom';
-
 import Appear from '../animations/Appear';
 import Text from '../animations/Text';
 import Title from '../animations/Title';
+
+import { events } from '../utils/events';
+import { map, each } from '../utils/dom';
 
 export default class Page extends EventEmitter {
   constructor({ classes, id, element, elements, responsive }) {
@@ -31,11 +32,7 @@ export default class Page extends EventEmitter {
       },
     };
 
-    this.fontSize = responsive.fontSize;
-    this.size = {
-      width: responsive.size.width,
-      height: responsive.size.height,
-    };
+    this.responsive = responsive;
     this.scroll = 0;
 
     this.isVisible = false;
@@ -163,10 +160,7 @@ export default class Page extends EventEmitter {
   /**
    * Events.
    */
-  onResize(size, fontSize) {
-    this.fontSize = fontSize;
-    this.size = size;
-
+  onResize(event) {
     window.requestAnimationFrame(() => {
       each(this.animations, (animation) => {
         if (animation.onResize) {
@@ -182,21 +176,35 @@ export default class Page extends EventEmitter {
 
   onTouchUp() {}
 
-  onWheel(event) {
+  onLenis(event) {
     this.scroll = event.scroll;
   }
 
   /**
    * Listeners.
    */
-  addEventListeners() {}
+  addEventListeners() {
+    events.on('resize', this.onResize);
+    events.on('touchdown', this.onTouchDown);
+    events.on('touchmove', this.onTouchMove);
+    events.on('touchup', this.onTouchUp);
+    events.on('lenis', this.onLenis);
+    events.on('update', this.update);
+  }
 
-  removeEventListeners() {}
+  removeEventListeners() {
+    events.off('resize', this.onResize);
+    events.off('touchdown', this.onTouchDown);
+    events.off('touchmove', this.onTouchMove);
+    events.off('touchup', this.onTouchUp);
+    events.off('lenis', this.onLenis);
+    events.off('update', this.update);
+  }
 
   /**
    * Loop.
    */
-  update(scroll, time) {
+  update({ scroll }) {
     if (!this.isVisible) return;
 
     each(this.animations, (animation) => {
