@@ -21,7 +21,7 @@ class LenisScroll {
     this.lenis.on('scroll', ScrollTrigger.update);
     this.lenis.on('scroll', (e) => events.emit('lenis', e));
 
-    events.on('pre-update', this.update);
+    events.on('start-update', this.update.bind(this));
   }
 
   update = ({ time }) => {

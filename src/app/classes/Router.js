@@ -29,6 +29,7 @@ export default class Router {
     if (url === this.url || this.isNavigating) return;
 
     this.url = url;
+    this.lastUrl = url;
     this.isNavigating = true;
 
     lenis.stop();

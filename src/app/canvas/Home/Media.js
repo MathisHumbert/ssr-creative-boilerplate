@@ -15,11 +15,11 @@ export default class Media {
     this.scene = scene;
     this.geometry = geometry;
 
-    this.scroll = lenis.scroll;
     this.isVisible = false;
 
     this.createMaterial();
     this.createMesh();
+
     this.addEventsListeners();
   }
 
@@ -59,7 +59,7 @@ export default class Media {
     const rect = this.element.getBoundingClientRect();
 
     this.bounds = {
-      top: rect.top + this.scroll,
+      top: rect.top + lenis.scroll,
       left: rect.left,
       width: rect.width,
       height: rect.height,
@@ -67,7 +67,7 @@ export default class Media {
 
     this.updateScale();
     this.updateX();
-    this.updateY(this.scroll);
+    this.updateY(lenis.scroll);
   }
 
   /**
@@ -135,10 +135,7 @@ export default class Media {
   }
 
   onLenis(event) {
-    console.log();
     this.updateY(event.scroll);
-
-    this.scroll = event.scroll;
   }
 
   /**

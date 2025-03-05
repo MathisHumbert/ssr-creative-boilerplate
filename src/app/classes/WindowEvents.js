@@ -65,7 +65,7 @@ class WindowEvents {
     const deltaTime = elapsedTime - this.oldElapsedTime;
     this.oldElapsedTime = elapsedTime;
 
-    events.emit('pre-update', {
+    events.emit('start-update', {
       time,
       deltaTime,
     });

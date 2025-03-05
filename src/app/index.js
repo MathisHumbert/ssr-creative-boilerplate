@@ -25,9 +25,6 @@ export default class App {
   constructor() {
     AutoBind(this);
 
-    this.url = window.location.pathname;
-    this.lastUrl = window.location.pathname;
-
     if (import.meta.env.VITE_DEV_MODE === 'true') {
       this.createStats();
       this.createGrid();

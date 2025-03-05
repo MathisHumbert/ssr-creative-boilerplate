@@ -11,10 +11,11 @@ export default class Cube {
     this.element = element;
     this.scene = scene;
 
-    this.scroll = lenis.scroll;
     this.isVisible = false;
 
     this.createMesh();
+    this.createBounds();
+
     this.addEventsListeners();
   }
 
@@ -30,22 +31,20 @@ export default class Cube {
 
     this.mesh = new Mesh(this.geometry, this.material);
     this.scene.add(this.mesh);
-
-    this.createBounds();
   }
 
   createBounds() {
     const rect = this.element.getBoundingClientRect();
 
     this.bounds = {
-      top: rect.top + this.scroll,
+      top: rect.top + lenis.scroll,
       left: rect.left,
       width: rect.width,
       height: rect.height,
     };
 
     this.updateScale();
-    this.updateY(this.scroll);
+    this.updateY(lenis.scroll);
   }
 
   /**
@@ -102,8 +101,6 @@ export default class Cube {
 
   onLenis(event) {
     this.updateY(event.scroll);
-
-    this.scroll = event.scroll;
   }
 
   /**

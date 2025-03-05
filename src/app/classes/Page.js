@@ -12,7 +12,7 @@ import { events } from '../utils/events';
 import { map, each } from '../utils/dom';
 
 export default class Page extends EventEmitter {
-  constructor({ classes, id, element, elements, responsive }) {
+  constructor({ classes, id, element, elements }) {
     super();
 
     autoBind(this);
@@ -31,9 +31,6 @@ export default class Page extends EventEmitter {
         ...elements,
       },
     };
-
-    this.responsive = responsive;
-    this.scroll = 0;
 
     this.isVisible = false;
   }
@@ -116,8 +113,6 @@ export default class Page extends EventEmitter {
    * Animations.
    */
   async show(showPage = null) {
-    this.scroll = 0;
-
     each(this.animations, (animation) => animation.createAnimation());
 
     this.addEventListeners();
@@ -176,9 +171,7 @@ export default class Page extends EventEmitter {
 
   onTouchUp() {}
 
-  onLenis(event) {
-    this.scroll = event.scroll;
-  }
+  onLenis(event) {}
 
   /**
    * Listeners.
@@ -204,12 +197,12 @@ export default class Page extends EventEmitter {
   /**
    * Loop.
    */
-  update({ scroll }) {
+  update() {
     if (!this.isVisible) return;
 
     each(this.animations, (animation) => {
       if (animation.update) {
-        animation.update(scroll);
+        animation.update();
       }
     });
   }
