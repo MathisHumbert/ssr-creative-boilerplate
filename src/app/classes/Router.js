@@ -3,6 +3,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import { lenis } from './Lenis';
 import { each } from '../utils/dom';
+import { events } from '../utils/events';
 
 export default class Router {
   constructor(app) {
@@ -69,12 +70,12 @@ export default class Router {
 
       await this.app.preloader.loadPage(this.app.content);
 
-      await Promise.all([
-        this.app.page.show(currentTemplate),
-        this.app.canvas.show(this.app.template),
-      ]);
+      const pageShowPromise = this.app.page.show(currentTemplate);
+      const canvasShowPromise = this.app.canvas.show(this.app.template);
 
-      // events.emit('resize');
+      events.emit('resize');
+
+      await Promise.all([pageShowPromise, canvasShowPromise]);
 
       lenis.start();
 

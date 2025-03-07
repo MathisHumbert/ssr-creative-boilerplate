@@ -51,8 +51,6 @@ export default class Media {
   createMesh() {
     this.mesh = new Mesh(this.geometry, this.material);
     this.scene.add(this.mesh);
-
-    this.createBounds();
   }
 
   createBounds() {

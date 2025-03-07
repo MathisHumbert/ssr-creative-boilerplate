@@ -96,9 +96,12 @@ export default class App {
    * Events.
    */
   async onPreloaded() {
-    await Promise.all([this.page.show(null), this.canvas.show(this.template)]);
+    const pageShowPromise = this.page.show(null);
+    const canvasShowPromise = this.canvas.show(this.template);
 
-    // events.emit('resize');
+    events.emit('resize');
+
+    await Promise.all([pageShowPromise, canvasShowPromise]);
 
     this.router.onPreloaded();
   }

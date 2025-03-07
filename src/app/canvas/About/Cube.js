@@ -14,7 +14,6 @@ export default class Cube {
     this.isVisible = false;
 
     this.createMesh();
-    this.createBounds();
 
     this.addEventsListeners();
   }

@@ -1,5 +1,4 @@
 import autoBind from 'auto-bind';
-import EventEmitter from 'events';
 import gsap from 'gsap';
 
 import LazyLoad from './LazyLoad';
@@ -11,10 +10,8 @@ import Title from '../animations/Title';
 import { events } from '../utils/events';
 import { map, each } from '../utils/dom';
 
-export default class Page extends EventEmitter {
+export default class Page {
   constructor({ classes, id, element, elements }) {
-    super();
-
     autoBind(this);
 
     this.classes = { ...classes };
