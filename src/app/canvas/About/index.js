@@ -11,8 +11,6 @@ export default class About {
     this.cube = new Cube({
       element: document.querySelector('.about__media'),
       scene: this.scene,
-      screen: this.screen,
-      viewport: this.viewport,
     });
   }
 

@@ -1,4 +1,4 @@
-import autoBind from 'auto-bind';
+import AutoBind from 'auto-bind';
 import gsap from 'gsap';
 
 import LazyLoad from './LazyLoad';
@@ -12,7 +12,7 @@ import { map, each } from '../utils/dom';
 
 export default class Page {
   constructor({ classes, id, element, elements }) {
-    autoBind(this);
+    AutoBind(this);
 
     this.classes = { ...classes };
     this.id = id;
@@ -153,12 +153,10 @@ export default class Page {
    * Events.
    */
   onResize(event) {
-    window.requestAnimationFrame(() => {
-      each(this.animations, (animation) => {
-        if (animation.onResize) {
-          animation.onResize();
-        }
-      });
+    each(this.animations, (animation) => {
+      if (animation.onResize) {
+        animation.onResize();
+      }
     });
   }
 

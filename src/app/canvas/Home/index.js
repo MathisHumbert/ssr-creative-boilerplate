@@ -16,8 +16,6 @@ export default class Home {
       element: document.querySelector('.home__media'),
       scene: this.scene,
       geometry: this.geometry,
-      screen: this.screen,
-      viewport: this.viewport,
     });
   }
 

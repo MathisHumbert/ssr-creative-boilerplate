@@ -1,5 +1,5 @@
 import { PerspectiveCamera, Scene, WebGLRenderer } from 'three';
-import autoBind from 'auto-bind';
+import AutoBind from 'auto-bind';
 
 import Home from './Home';
 import About from './About';
@@ -10,7 +10,7 @@ import { events } from '../utils/events';
 
 export default class Canvas {
   constructor() {
-    autoBind(this);
+    AutoBind(this);
 
     this.template = null;
 
