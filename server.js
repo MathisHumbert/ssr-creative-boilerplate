@@ -13,14 +13,6 @@ const isProduction = process.env.NODE_ENV === 'production';
 const port = process.env.PORT || 3000;
 const base = process.env.BASE || '/';
 
-const getImageUrl = (img) => {
-  if (img.asset._ref.includes('webp')) {
-    return builder.image(img).url();
-  } else {
-    return builder.image(img).format('webp').url();
-  }
-};
-
 const initApi = () => {
   return createClient({
     projectId: process.env.SANITY_PROJECT_ID,
@@ -30,8 +22,16 @@ const initApi = () => {
   });
 };
 
-const client = initApi();
-const builder = imageUrlBuilder(client);
+// const client = initApi();
+// const builder = imageUrlBuilder(client);
+
+const getImageUrl = (img) => {
+  if (img.asset._ref.includes('webp')) {
+    return builder.image(img).url();
+  } else {
+    return builder.image(img).format('webp').url();
+  }
+};
 
 const fetchHome = async (client) => {
   const home = await client.fetch('*[_type == "home"][0]');
@@ -42,23 +42,24 @@ const fetchHome = async (client) => {
 const app = express();
 let vite;
 
-// Security headers with Helmet
-app.use(helmet({
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"], // WebGL + Vite dev needs unsafe-eval
-      styleSrc: ["'self'", "'unsafe-inline'"],
-      imgSrc: ["'self'", "data:", "https:", "blob:"], // For textures and Sanity images
-      connectSrc: ["'self'", "ws:", "wss:", "https:"], // WebSocket for Vite HMR
-      fontSrc: ["'self'", "data:"],
-      objectSrc: ["'none'"],
-      mediaSrc: ["'self'"],
-      frameSrc: ["'none'"],
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        imgSrc: ["'self'", 'data:', 'https:', 'blob:'],
+        connectSrc: ["'self'", 'ws:', 'wss:', 'https:'],
+        fontSrc: ["'self'", 'data:'],
+        objectSrc: ["'none'"],
+        mediaSrc: ["'self'"],
+        frameSrc: ["'none'"],
+      },
     },
-  },
-  crossOriginEmbedderPolicy: false, // WebGL compatibility
-}));
+    crossOriginEmbedderPolicy: false,
+  })
+);
 
 if (!isProduction) {
   app.use(logger('dev'));
@@ -104,7 +105,7 @@ app.get('/', async (req, res) => {
   } catch (e) {
     vite?.ssrFixStacktrace(e);
     console.error('Error rendering home page:', e);
-    
+
     if (isProduction) {
       res.status(500).send('Internal Server Error');
     } else {
@@ -123,7 +124,7 @@ app.get('/about', async (req, res) => {
   } catch (e) {
     vite?.ssrFixStacktrace(e);
     console.error('Error rendering about page:', e);
-    
+
     if (isProduction) {
       res.status(500).send('Internal Server Error');
     } else {
