@@ -1,10 +1,11 @@
 import express from 'express';
-import fetch from 'node-fetch';
 import errorHandler from 'errorhandler';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
 import methodOverride from 'method-override';
-import * as prismic from '@prismicio/client';
+import helmet from 'helmet';
+import { createClient } from '@sanity/client';
+import imageUrlBuilder from '@sanity/image-url';
 import path from 'path';
 import 'dotenv/config';
 
@@ -12,35 +13,52 @@ const isProduction = process.env.NODE_ENV === 'production';
 const port = process.env.PORT || 3000;
 const base = process.env.BASE || '/';
 
-const initApi = (req) => {
-  return prismic.createClient(process.env.PRISMIC_REPOSITORY, {
-    accessToken: process.env.PRISMIC_ACCESS_TOKEN,
-    req,
-    fetch,
+const getImageUrl = (img) => {
+  if (img.asset._ref.includes('webp')) {
+    return builder.image(img).url();
+  } else {
+    return builder.image(img).format('webp').url();
+  }
+};
+
+const initApi = () => {
+  return createClient({
+    projectId: process.env.SANITY_PROJECT_ID,
+    dataset: process.env.SANITY_DATASET,
+    useCdn: isProduction,
+    apiVersion: '2023-05-03',
   });
 };
 
-const fetchDefaults = async (api) => {
-  const assets = [];
+const client = initApi();
+const builder = imageUrlBuilder(client);
 
-  const meta = api.getSingle('meta');
-
-  return { meta, assets };
-};
-
-const fetchHome = async (api) => {
-  const home = await api.getSingle('home');
+const fetchHome = async (client) => {
+  const home = await client.fetch('*[_type == "home"][0]');
 
   return home;
 };
 
-const fetchAbout = async (api) => {
-  const about = await api.getSingle('about');
-
-  return about;
-};
-
 const app = express();
+let vite;
+
+// Security headers with Helmet
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"], // WebGL + Vite dev needs unsafe-eval
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      imgSrc: ["'self'", "data:", "https:", "blob:"], // For textures and Sanity images
+      connectSrc: ["'self'", "ws:", "wss:", "https:"], // WebSocket for Vite HMR
+      fontSrc: ["'self'", "data:"],
+      objectSrc: ["'none'"],
+      mediaSrc: ["'self'"],
+      frameSrc: ["'none'"],
+    },
+  },
+  crossOriginEmbedderPolicy: false, // WebGL compatibility
+}));
 
 if (!isProduction) {
   app.use(logger('dev'));
@@ -54,7 +72,7 @@ app.use(methodOverride());
 if (!isProduction) {
   const { createServer } = await import('vite');
 
-  const vite = await createServer({
+  vite = await createServer({
     server: { middlewareMode: true },
     appType: 'custom',
     base,
@@ -74,10 +92,9 @@ app.set('view engine', 'pug');
 
 app.get('/', async (req, res) => {
   try {
-    // const api = initApi(req);
+    // const client = initApi();
 
-    // const defaults = await fetchDefaults(api);
-    // const home = await fetchHome(api);
+    // const home = await fetchHome(client);
 
     res.render('pages/home', {
       title: 'Home',
@@ -86,18 +103,18 @@ app.get('/', async (req, res) => {
     });
   } catch (e) {
     vite?.ssrFixStacktrace(e);
-    console.log(e.stack);
-    res.status(500).end(e.stack);
+    console.error('Error rendering home page:', e);
+    
+    if (isProduction) {
+      res.status(500).send('Internal Server Error');
+    } else {
+      res.status(500).end(e.stack);
+    }
   }
 });
 
 app.get('/about', async (req, res) => {
   try {
-    // const api = initApi(req);
-
-    // const defaults = await fetchDefaults(api);
-    // const about = await fetchAbout(api);
-
     res.render('pages/about', {
       title: 'About',
       link: { text: 'Home', url: '/', isProduction },
@@ -105,8 +122,13 @@ app.get('/about', async (req, res) => {
     });
   } catch (e) {
     vite?.ssrFixStacktrace(e);
-    console.log(e.stack);
-    res.status(500).end(e.stack);
+    console.error('Error rendering about page:', e);
+    
+    if (isProduction) {
+      res.status(500).send('Internal Server Error');
+    } else {
+      res.status(500).end(e.stack);
+    }
   }
 });
 

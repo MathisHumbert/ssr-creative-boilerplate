@@ -1,9 +1,9 @@
 import '../styles/index.scss';
 import './utils/scroll';
 import './classes/WindowEvents';
+import './classes/Gsap';
 
 import AutoBind from 'auto-bind';
-import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Stats from 'stats.js';
 
@@ -18,8 +18,6 @@ import Home from './pages/Home';
 import About from './pages/About';
 
 import { events } from './utils/events';
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default class App {
   constructor() {

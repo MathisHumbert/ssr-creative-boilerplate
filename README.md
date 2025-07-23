@@ -10,7 +10,7 @@ I changed some part of this template bases for my own use.
 
 I replaced Webpack with Vite.js and updated all of the packages to have an up to date template.
 
-It's using Prismic as a CMS, feel free to replace it with any other CMS of your choice.
+It's using Sanity as a CMS, feel free to replace it with any other CMS of your choice.
 
 #### Server
 

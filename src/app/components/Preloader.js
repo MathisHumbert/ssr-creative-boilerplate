@@ -27,14 +27,9 @@ export default class Preloader extends Component {
 
     const images = content.querySelectorAll('data-src');
 
-    const preloadImages = new Promise((res) => {
-      imagesLoaded(content, { background: true }, res);
-    });
-
+    const preloadImages = this.loadImages(content);
     const preloadTextures = this.loadTextures([...images, 'texture.jpeg']);
-
     const preloaderAnimation = this.animatePreloader();
-
     const preloadFonts = this.loadFonts();
 
     Promise.all([
@@ -53,32 +48,23 @@ export default class Preloader extends Component {
 
   loadPage(content) {
     const images = content.querySelectorAll('data-src');
-
-    if (!this.loadedTextureUrl.includes(window.location.pathname)) {
+    const loadImages = this.loadImages(content);
+    
+    const shouldLoadTextures = !this.loadedTextureUrl.includes(window.location.pathname);
+    
+    if (shouldLoadTextures) {
       this.loadedTextureUrl.push(window.location.pathname);
-
-      const loadImages = new Promise((res) => {
-        imagesLoaded(content, { background: true }, res);
-      });
-
       const loadTextures = this.loadTextures(images);
-
-      return new Promise((res) => {
-        Promise.all([loadImages, loadTextures]).then(() => {
-          res();
-        });
-      });
-    } else {
-      const loadImages = new Promise((res) => {
-        imagesLoaded(content, { background: true }, res);
-      });
-
-      return new Promise((res) => {
-        loadImages.then(() => {
-          res();
-        });
-      });
+      return Promise.all([loadImages, loadTextures]);
     }
+    
+    return loadImages;
+  }
+
+  loadImages(content) {
+    return new Promise((resolve) => {
+      imagesLoaded(content, { background: true }, resolve);
+    });
   }
 
   loadFonts() {
